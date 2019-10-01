@@ -1,0 +1,7 @@
+analysis/CSV/*
+documents/BRAT-*/*
+documents/TXT-*/*
+documents/XML-*/*
+.DS_Store
+
+
