@@ -43,7 +43,7 @@ This folder contains the result (Plot and CVS) of statiscial analysis based on t
   {Corpus-Name}_analysis_header_co-occurrence.csv: Is it a matrix which showing how many times two headers co-occurrened
   {Corpus-Name}_analysis_original_headers_in_report.csv: Showing the original text in the EHR that script detect it as a header (By similarity method) 
 
-\Annotated/
+Annotated/
 This folder contains the result of the annotators that manually annotate/modify the output of the EHR-HeaderDetector script. There are 4 subdirectories, 
   - original: original files for each annotator.
   - pre-processing: (For removing un-necassery annotations)
@@ -84,6 +84,15 @@ For concatenate two ann files to together.
 Options:
 <pre>
 -c      Type of Corpus [For example: Aquas or SonEspases]
+</pre>
+
+
+For comparing different ann files. 
+	python3 comparing_ann.py [options] 
+
+Options:
+<pre>
+-set      Number of Set that we want to do comparing [For example: 1]
 </pre>
 
 
