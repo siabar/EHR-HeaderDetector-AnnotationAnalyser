@@ -97,13 +97,14 @@ def init(Corpus="Aquas"):
     TXT_Directory = os.path.join(parentDir, "documents", "TXT-" + Corpus)
     # TXT_Directory = os.path.join(parentDir, "documents", "TXT")
 
-    XML_Directory = os.path.join(parentDir, "documents", "XML-Test-" + Corpus)
+    XML_Directory = os.path.join(parentDir, "documents", "XML-" + Corpus)
     HEADER = os.path.join(parentDir, "data/headers.txt")
 
 
     headers_name_dic, headers_type_dic = Headers_dic(HEADER)
 
     for text_files in os.listdir(TXT_Directory):
+        print(text_files)
         file_name = text_files.split(".", 1)
         marked = True
         stri = ""

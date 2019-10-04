@@ -47,8 +47,9 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
 
     # parser = ET.XMLParser(encoding="UTF-8")
 
-    home = "/home/siabar/30yamak/git/EHR-normalizer/documents/"
+    home =  os.path.join(parentDir, "documents/")
     # files = glob.glob("/home/siabar/30yamak/git/EHR-normalizer/documents/XML-" + corpus + "/*.xml")
+
     files = glob.glob(home + "XML-" + corpus + "/*.xml")
     Brat_dir = home + "BRAT-" + corpus
 
@@ -385,7 +386,7 @@ def print_csv(dictOfFiles, x, y, yy, header_cooccurrences,dictOfHeaders_childs,c
 
 
 def get_importantheaders():
-    importnat_list = os.path.join(parentDir, "/data/important_headers.txt")
+    importnat_list = os.path.join(parentDir, "data/important_headers.txt")
     with open(importnat_list) as f:
         content = f.readlines()
     content = [x.strip() for x in content]
