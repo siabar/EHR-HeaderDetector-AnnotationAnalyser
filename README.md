@@ -3,7 +3,6 @@
 
 
 ## Introduction
-------------
 
 This script performs EHR normalization by detecting headers from documents and mapping those sections into any desired archetype. It can also restore the lines that have been truncated by a conversion process from the original document to txt.
 The detected headers also will save in a BRAT file with their begin and end spans.
@@ -12,7 +11,6 @@ Alos there is a script for doing statistical analysis on the detected headers in
 
 
 ## Directory structure
--------------------
 
 <pre>
 data/
@@ -57,7 +55,6 @@ This folder contains the result of the annotators that manually annotate/modify 
 
 
 ## Usage
------
 
 For Detecting Header we use this commad:
 
@@ -91,13 +88,11 @@ Options:
 
 
 ## Contact
-------
 
 Siamak Barzegar (siamak.barzegar@bsc.es)
 
 
 ## License
--------
 
 Copyright (c) 2017-2018 Secretaría de Estado para el Avance Digital (SEAD)
 
