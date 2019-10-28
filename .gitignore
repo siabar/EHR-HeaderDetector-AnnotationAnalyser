@@ -1,7 +1,9 @@
-analysis/CSV/*
-documents/BRAT-*/*
-documents/TXT-*/*
-documents/XML-*/*
-.DS_Store
+*.csv
+*.txt
+*.xml
+*.ann
+*.xmi
+*.png
+*.DS_Store
 
 

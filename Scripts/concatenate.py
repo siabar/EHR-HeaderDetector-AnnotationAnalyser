@@ -17,13 +17,11 @@ fileDir = os.path.dirname(os.path.abspath(__file__))
 parentDir = os.path.dirname(fileDir)
 import unidecode
 
-def analysis(**kwargs):
+def analysis(ann_section, ann_variable, ann_final):
 
-    corpus = kwargs['corpus']
-    HEADER_BRAT = os.path.join(parentDir,"documents", "BRAT-" + corpus)
-    PIPELINE_BRAT = os.path.join(parentDir,"documents", "BRAT-PIPELINE-" + corpus)
-    FINAL_BRAT = os.path.join(parentDir,"documents", "BRAT-FINAL-" + corpus)
-
+    HEADER_BRAT = ann_section
+    PIPELINE_BRAT =  ann_variable
+    FINAL_BRAT = ann_final
 
 
     for f in listdir(PIPELINE_BRAT):
@@ -73,7 +71,7 @@ def analysis(**kwargs):
                                     temp = l_3[0] + " " + l_3[1] + " " + l_3[2]
                                 else:
                                     temp = ""
-                                    removed_list.append(line[0].replace("T", "#"))
+                                    removed_list.append(line[0].replace("T", "#",1))
                             else:
                                 temp = l_3[0] + " " + l_3[1] + " " + l_3[2]
                         # final_brat_f.write(line[0] + "\t" + temp+"\t" + line[2])
@@ -162,9 +160,22 @@ def analysis(**kwargs):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="analysis")
-
-    parser.add_argument('-c', help='Type of Corpus [Aquas, SonEspases]')
+    parser.add_argument('--set', help='Which set is going to compare')
 
     args = parser.parse_args()
+    Set =   args.set
 
-    analysis(corpus= args.c)
+    main_root = os.path.join(parentDir, "documents", "ANN_SECTION")
+
+    for text_files in os.listdir(main_root):
+        if not text_files.startswith(".DS_Store"):
+
+
+            HEADER_BRAT = os.path.join(main_root, text_files, Set)
+            PIPELINE_BRAT = HEADER_BRAT.replace("ANN_SECTION","ANN_VARIABLE")
+            FINAL_BRAT =    HEADER_BRAT.replace("ANN_SECTION","ANN_FINAL")
+            os.makedirs(os.path.join(FINAL_BRAT), exist_ok=True)
+
+
+
+            analysis(HEADER_BRAT, PIPELINE_BRAT, FINAL_BRAT)

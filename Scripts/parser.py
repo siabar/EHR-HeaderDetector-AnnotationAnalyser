@@ -27,7 +27,8 @@ def trim_name(name):
             else:
                 return name[:-1*i]
 
-def get_allinfo(filter=False, move=True, corpus='Aquas'):
+def get_allinfo(xml_files, filter=False, move=True, corpus='Aquas'):
+
     header_list = os.path.join(parentDir, "data/headers.txt")
     header = []
     dictOfHeaders = dict()
@@ -47,17 +48,18 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
 
     # parser = ET.XMLParser(encoding="UTF-8")
 
-    home =  os.path.join(parentDir, "documents/")
+    # home =  os.path.join(parentDir, "documents/")
     # files = glob.glob("/home/siabar/30yamak/git/EHR-normalizer/documents/XML-" + corpus + "/*.xml")
 
-    files = glob.glob(home + "XML-" + corpus + "/*.xml")
-    Brat_dir = home + "BRAT-" + corpus
+    # files = glob.glob(xml_dir + "/*.xml")
+    # Brat_dir = home + "BRAT-" + corpus
 
     dictOfFiles = dict()
     header_cooccurrences = dict()
     count = 0
-    for file in files:
+    for file in xml_files:
         filename = ntpath.basename(file)
+
         # print(filename)
 
         tags = []
@@ -66,8 +68,6 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
             pre = ""
             new  = ""
             name = ""
-            xx = os.path.join(Brat_dir,filename+'.ann', )
-            f = open(xx, "w+")
             counter = 1
             pre_header = ""
             for type_tag in root.findall('Section'):
@@ -76,29 +76,16 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
                     name = type_child.text
 
                 x = str(type_tag.get('id')).strip()
-                span_begin = str(type_tag.get('span_begin')).strip()
-                span_end = str(type_tag.get('span_end')).strip()
-                pure_name_eq = name.split("=",2)
-                pure_name = pure_name_eq[0].split("-!-",2)
-
-                name = pure_name[0]
+                # pure_name_eq = name.split("=",2)
+                # pure_name = pure_name_eq[0].split("-!-",2)
+                #
+                # name = pure_name[0]
                 if (x != "DEFAULT_HEADER") and (pre_header!=x):
-                    f.write("T" + str(counter) + "\t" + x + " " + span_begin + " " + span_end + "\t" + pure_name[0].strip() + "\n")
                     counter += 1
                     if pre == "":
                         pre = x
                     else:
-                        # new=x
-                        # co_occoure =  pre+"_"+new
-                        # if (header_cooccurrences.get(co_occoure) != None):
-                        #     header_cooccurrences[co_occoure] = header_cooccurrences.get(co_occoure)+1
-                        # else:
-                        #     header_cooccurrences[co_occoure] = 1
-                        # pre=new
-
-
                         new=x
-                        co_occoure =  pre+"_"+new
                         if (header_cooccurrences.get(pre) != None):
                              co_occoure_pre= header_cooccurrences.get(pre)
                              if (co_occoure_pre.get(new) != None):
@@ -110,31 +97,6 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
                             header_cooccurrences[pre] = {new:1}
                         pre=new
 
-
-                        # new=x
-                        # co_occoure =  pre+"_"+new
-                        # if (header_cooccurrences.get(pre) != None):
-                        #      co_occoure_pre= header_cooccurrences.get(pre)
-                        #      if (header_cooccurrences.get(new) != None):
-                        #         co_occoure_new = header_cooccurrences.get(new)
-                        #      else:
-                        #          header_cooccurrences[new] = {pre:1}
-                        #
-                        #      co_occoure_pre[new] = co_occoure_pre.get(new) + 1
-                        #      co_occoure_new[pre] = co_occoure_new.get(pre) + 1
-                        #      header_cooccurrences[pre] = co_occoure_pre
-                        #      header_cooccurrences[new] = co_occoure_new
-                        # else:
-                        #     header_cooccurrences[pre] = {new:1}
-                        #     if (header_cooccurrences.get(new) != None):
-                        #         co_occoure_new = header_cooccurrences.get(new)
-                        #         co_occoure_new[pre] = co_occoure_new.get(pre) + 1
-                        #         header_cooccurrences[new] = co_occoure_new
-                        #     else:
-                        #         header_cooccurrences[new] = {pre: 1}
-                        # pre=new
-
-
                     if x not in tags:
                         tags.append(x)
 
@@ -145,16 +107,11 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
                             listchilds.append(trimedname)
                             updated = {x: listchilds}
                             dictOfHeaders_childs.update(updated)
-
-                # else:
-                #     if x == "SITUACIÓN FUNCIONAL":
-                #         print(filename)
                 pre_header = x
             if filter == True:
                 acceptable = True
                 for cont in content:
                     if ((cont not in tags)):
-                        # print("Not suitable file: " + filename)
                         acceptable = False
                         break
                 if (acceptable):
@@ -183,6 +140,8 @@ def get_allinfo(filter=False, move=True, corpus='Aquas'):
         except:
             print("ERROR", filename, sys.exc_info())
     return  dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs
+
+
 
 def showbasicinfo(x,y,corpus):
     plot_file = os.path.join(parentDir, "analysis/PLOT/Fiq_" + corpus + ".png")
@@ -283,14 +242,14 @@ def print_csv(dictOfFiles, x, y, yy, header_cooccurrences,dictOfHeaders_childs,c
     # data = pd.DataFrame(d)
     # print(data.head())
     # data.to_csv(csv_headers, index = False, sep='\t' )
-    with open(csv_headers, mode='w') as csv_headers_f:
+    with open(csv_headers, mode='w+') as csv_headers_f:
         for key, value in zip(x,yy):
             csv_headers_f.write(key + "\t" + value)
             csv_headers_f.write('\n')
 
 
 
-    with open(csv_header_cooccurrences, 'w') as f:
+    with open(csv_header_cooccurrences, 'w+') as f:
         # for key, values in sorted(header_cooccurrences.items(), key = lambda kv:(kv[1], kv[0]), reverse=True):
         #     f.write("%s\t%s\n" % (key, values))
         csv_writer = csv.writer(f, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
@@ -396,7 +355,8 @@ def analysis(**kwargs):
     filter = kwargs['filter']
     strict = kwargs['strict']
     corpus = kwargs['corpus']
-    dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(filter, corpus=corpus)
+    XML_files = kwargs['XML_files']
+    dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(XML_files, filter, corpus=corpus)
 
     # dictOfHeaders = filtering(dictOfFiles, combination)
 
@@ -419,7 +379,7 @@ def analysis(**kwargs):
                 yy.append(",".join(value))
                 # print("Header: " + key + "\tFiles: " + "\t".join(value))
         else:
-            print("Zero length")
+            print("The files do not have any section about: " + key)
 
     print_csv(dictOfFiles, x, y, yy, header_cooccurrences, dictOfHeaders_childs, corpus)
     #Show Basic Info
@@ -442,9 +402,35 @@ if __name__ == "__main__":
 
     parser.add_argument('-c', help='Type of Corpus [Aquas, SonEspases]')
 
-    args = parser.parse_args()
+    parser.add_argument('--set', help='Which set is going to compare')
 
-    analysis(filter=args.filter, strict=args.strict, corpus= args.c)
+    args = parser.parse_args()
+    Set =   args.set
+
+
+
+
+
+    list_files = []
+    list_file_names = []
+
+    main_root = os.path.join(parentDir, "documents", "XML_SECTION")
+
+    for dirpath, dirnames, filenames in os.walk(main_root):
+        if Set!=None:
+            if not dirpath.endswith(Set):
+                continue
+        for filename in [f for f in filenames if f.endswith(".xml") and not f.startswith(".DS_Store")]:
+            if filename not in list_file_names:
+                list_files.append(os.path.join(dirpath, filename))
+                list_file_names.append(filename)
+
+    # for text_files in os.listdir(main_root):
+    #     if not text_files.startswith(".DS_Store"):
+    #         XML_Directory = os.path.join(main_root,text_files, Set)
+
+
+    analysis(filter=args.filter, strict=args.strict, corpus= args.set, XML_files=list_files)
 
 
 
