@@ -32,7 +32,8 @@ def init(Set):
 
 
 
-    ctakes_dir = os.path.join(main_dir, "cTAKES")
+    pre_annotated_dir = os.path.join(parentDir, "documents")
+    ctakes_dir = os.path.join(pre_annotated_dir, "ANN_FINAL")
 
 def annators():
     list_annotators = []
