@@ -1,5 +1,4 @@
-# EHR-HeaderDetector-AnnotatedAnalyser: #
-#Electronic Health Record (EHR) Header Detector and Annotated Analyser #
+# EHR-HeaderDetector-AnnotatedAnalyser: Electronic Health Record (EHR) Header Detector and Annotated Analyser #
 
 
 
