@@ -1,4 +1,4 @@
-# New Document# EHR-HeaderDetector: Electronic Health Record (EHR) Header Detector     
+# EHR-HeaderDetector: Electronic Health Record (EHR) Header Detector #
 
 
 
@@ -157,4 +157,3 @@ Options:
 ## Contact
 
 Siamak Barzegar (siamak.barzegar@bsc.es)
-
