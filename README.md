@@ -16,8 +16,6 @@ do statistical analysis on the results.
 
 ## Directory structure
 
-<pre>
-
 scripts/
 This folder contains the scripts needed to detect headers, calculate statistical analysis of headers 
 and compraing different annotations records (that has been done by different annotators) for a same file
@@ -108,7 +106,6 @@ for a same file and comparing the manually annotated files with pre-annotated fi
     Also calulate statistical analysis on how many variables have been added/accepted/changed/removed.
 
 
-</pre> 
 
 
 ## Usage
