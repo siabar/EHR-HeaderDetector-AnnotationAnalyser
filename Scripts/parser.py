@@ -144,7 +144,9 @@ def get_allinfo(xml_files, filter=False, move=True, corpus='Aquas'):
 
 
 def showbasicinfo(x,y,corpus):
-    plot_file = os.path.join(parentDir, "analysis/PLOT/Fiq_" + corpus + ".png")
+    plt_dir = os.path.join(parentDir, "analysis_headers/PLOT/")
+    os.makedirs(plt_dir,exist_ok=True)
+    plot_file = os.path.join(plt_dir,"Fiq_" + corpus + ".png")
     # x = []
     # y = []
     # for key, value in dictOfHeaders.items():
@@ -226,11 +228,15 @@ def showbasicinfo(x,y,corpus):
     # plt.show()
 
 def print_csv(dictOfFiles, x, y, yy, header_cooccurrences,dictOfHeaders_childs,corpus):
-    csv_files = os.path.join(parentDir, "analysis/CSV/" + corpus + "_analysis_files.csv")
-    csv_headers = os.path.join(parentDir, "analysis/CSV/" + corpus + "_analysis_headers.csv")
-    csv_headers_number = os.path.join(parentDir, "analysis/CSV/" + corpus + "_analysis_headers-number.csv")
-    csv_header_cooccurrences= os.path.join(parentDir, "analysis/CSV/" + corpus + "_analysis_header_co-occurrences.csv")
-    csv_header_children = os.path.join(parentDir, "analysis/CSV/" + corpus + "_analysis_original_headers_in_report.csv")
+
+
+    csv_dir = os.path.join(parentDir, "analysis_headers/CSV/")
+    os.makedirs(csv_dir, exist_ok=True)
+    csv_files = os.path.join(csv_dir, corpus + "_analysis_files.csv")
+    csv_headers = os.path.join(csv_dir, corpus + "_analysis_headers.csv")
+    csv_headers_number = os.path.join(csv_dir, corpus + "_analysis_headers-number.csv")
+    csv_header_cooccurrences= os.path.join(csv_dir, corpus + "_analysis_header_co-occurrences.csv")
+    csv_header_children = os.path.join(csv_dir, corpus + "_analysis_original_headers_in_report.csv")
 
 
     d = {"Headers": x, "Filesnumber": y}
