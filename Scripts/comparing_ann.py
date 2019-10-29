@@ -38,7 +38,8 @@ def init(Set):
 def annators():
     list_annotators = []
     for sub_dir in os.listdir(annotators_dir):
-        list_annotators.append(sub_dir)
+        if not sub_dir.startswith('.'):
+            list_annotators.append(sub_dir)
 
     return list_annotators
 
@@ -58,10 +59,11 @@ def pre_processing(annotators, Set):
         annotators_entities = {}
         annotators_hash = {}
         removes = {}
-        for annotators_files in os.listdir(os.path.join(annotators_dir, dir, Set)):
+        annotators_deep_dir = os.path.join(annotators_dir, dir, Set)
+        for annotators_files in os.listdir(annotators_deep_dir):
             if annotators_files.endswith(".ann"):
                 list_files.append(annotators_files)
-                with open(os.path.join(annotators_dir, dir, Set,annotators_files), "r") as r:
+                with open(os.path.join(annotators_deep_dir,annotators_files), "r") as r:
                     entities = []
                     remove_ent = []
                     hash_ent = []

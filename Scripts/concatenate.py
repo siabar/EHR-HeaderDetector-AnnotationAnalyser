@@ -168,7 +168,7 @@ if __name__ == "__main__":
     main_root = os.path.join(parentDir, "documents", "ANN_SECTION")
 
     for text_files in os.listdir(main_root):
-        if not text_files.startswith(".DS_Store"):
+        if not text_files.startswith("."):
 
 
             HEADER_BRAT = os.path.join(main_root, text_files, Set)
