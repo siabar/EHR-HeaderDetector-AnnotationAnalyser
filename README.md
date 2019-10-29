@@ -16,25 +16,27 @@ do statistical analysis on the results.
 
 ## Directory structure
 
+<pre>
 scripts/
+</pre> 
 This folder contains the scripts needed to detect headers, calculate statistical analysis of headers 
 and compraing different annotations records (that has been done by different annotators) for a same file
 and finally comparing the manually annotated files with pre-annotated files by [SpaCTeS tool](https://github.com/siabar/SpaCTeS).
 
-  - header_detector.py: For detecting headers of EHR (Electronich Health Records). 
+  - **header_detector.py**: For detecting headers of EHR (Electronich Health Records). 
 	We need the list of headers that is available of [data directory](data/). 
 	Input is [TXT files](documents/TXT) and 
 	output is [XML files](documents/XML_SECTION) and [BRAT files (ANN)](documents/ANN_SECTION) .
 
-  - parser.py: For calulating statistical analysis on the headers of XML files (output of header_detector.py).
+  - **parser.py**: For calulating statistical analysis on the headers of XML files (output of header_detector.py).
 	Input is [XML files](documents/XML_SECTION) and output is CSV and PNG in analysis_headers directory.
 	analysis_headers folder will be create after running "parser" script.
 
-  - concatenate.py: For concatenating outout of header_detector (ANN files in root/documents/ANN_SECTION) with
+  - **concatenate.py**: For concatenating outout of header_detector (ANN files in root/documents/ANN_SECTION) with
 	output of [pre_annotated files --BRAT files (ANN)](documents/ANN_VARIABLE) of [SpaCTeS tool](https://github.com/siabar/SpaCTeS).
 	Output of this script will be [ANN_FINAL](documents/ANN_FINAL).
 
-  - comparing_ann.py: For
+  - **comparing_ann.py**: For
 	1) comparing the activity of annotators with together. 
 	   Output of this part will be saved [IAA files](Annotated/IAA),
  	   which are ANN files with all acitivity of all annotators for given files
@@ -47,18 +49,19 @@ and finally comparing the manually annotated files with pre-annotated files by [
 	   Output of this part will be saved at [analysis](Annotated/analysis)
 
 	Note: All output directories of this part will be created after running this script
- 
+<pre> 
 data/
+</pre> 
 This folder contains relevant information for the conversion process:
 
-  - headers.txt: This file contains a list of allowed headers for your EHRs. The 
+  - **headers.txt**: This file contains a list of allowed headers for your EHRs. The 
   normalizer tries to match detected header candidates to this list.
-  - importat_headers.txt: This file contains a list of needed headers for doing statistical analysis.
+  - **importat_headers.txt**: This file contains a list of needed headers for doing statistical analysis.
 
-
+<pre> 
 documents/
-
-  - TXT/: Text files directory, this folder can have several sub-direcotries for each annotator
+</pre> 
+  - **TXT/**: Text files directory, this folder can have several sub-direcotries for each annotator
 	and it is mandatory that each annotator has sub-directory for difference bunch
 
 	Example of format of TXT directory (All other directories in documents also follow this format):
@@ -73,34 +76,37 @@ documents/
 		-02
 
 
-  - XML_SECTION/: Output of header_detector.py script
-  - ANN_SECTION/: Output of header_detector.py script and input for concatenate.py script
-  - ANN_VARIABLE/: Output of [SpaCTeS tool](https://github.com/siabar/SpaCTeS), which would be ANN files and input for concatenate.py script
-  - ANN_FINAL/: Outout of concatenate.py script
+  - **XML_SECTION/**: Output of header_detector.py script
+  - **ANN_SECTION/**: Output of header_detector.py script and input for concatenate.py script
+  - **ANN_VARIABLE/**: Output of [SpaCTeS tool](https://github.com/siabar/SpaCTeS), which would be ANN files and input for concatenate.py script
+  - **ANN_FINAL/**: Outout of concatenate.py script
 
-
+<pre> 
 analysis_headers/
+</pre> 
 This folder will be create after running "parser" script.
 and it contains the result (Plot and CVS) of statiscial analysis based on the detected headers.
-  - PLOT/:
+  - **PLOT/**:
 	Showing how many headers we detec on the given corpus
-  - CVS/:
+  - **CVS/**:
 	{Corpus-Name}_analysis_files.csv: Showing all detected headers in each text file. 
 	{Corpus-Name}_analysis_headers.csv: Showing all files that contain a specefic header. 
 	{Corpus-Name}_analysis_header_co-occurrence.csv: Is it a matrix which showing how many times two headers co-occurrened
 	{Corpus-Name}_analysis_original_headers_in_report.csv: Showing the original text in the EHR that script detect it as a header (By similarity method) 
 
+<pre>
 Annotated/
+</pre> 
 This folder contains the results of compraing different annotations records (that has been done by different annotators) 
 for a same file and comparing the manually annotated files with pre-annotated files by [SpaCTeS tool](https://github.com/siabar/SpaCTeS).
 
-  - annotators/: original files for each annotator.
-  - cTAKES/: pre-annotated ANN files (output of [SpaCTeS tool](https://github.com/siabar/SpaCTeS)).
-  - pre-processing/: directory for cleaned ANN files after removing un-necassery annotations.
-  - IAA/:  Result of comparing annotators' acitivies in ANN files (ANN files with all acitivity of all annotators for given files)
-  - post_processing_csv/:  Result of comparing annotators' activities in csv files
+  - **annotators/**: original files for each annotator.
+  - **cTAKES/**: pre-annotated ANN files (output of [SpaCTeS tool](https://github.com/siabar/SpaCTeS)).
+  - **pre-processing/**: directory for cleaned ANN files after removing un-necassery annotations.
+  - **IAA/**:  Result of comparing annotators' acitivies in ANN files (ANN files with all acitivity of all annotators for given files)
+  - **post_processing_csv/**:  Result of comparing annotators' activities in csv files
     (acitivities of all annotators have been shown for all annotated tokens).
-  - analysis/: Comparing the manually [annotated files](Annotated/annotators) with [pre-annotated file](Annotated/cTAKES) by [SpaCTeS tool](https://github.com/siabar/SpaCTeS)
+  - **analysis/**: Comparing the manually [annotated files](Annotated/annotators) with [pre-annotated file](Annotated/cTAKES) by [SpaCTeS tool](https://github.com/siabar/SpaCTeS)
     For detecing which pre-annoted variables have been changed, accepted, removed and 
     which variables have been added by annotators.
     Also calulate statistical analysis on how many variables have been added/accepted/changed/removed.
@@ -164,4 +170,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
