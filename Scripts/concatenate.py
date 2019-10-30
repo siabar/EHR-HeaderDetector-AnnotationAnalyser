@@ -151,13 +151,6 @@ def analysis(ann_section, ann_variable, ann_final):
 
 
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="analysis")
     parser.add_argument('--set', help='Which set is going to compare')
