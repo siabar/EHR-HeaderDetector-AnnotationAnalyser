@@ -183,7 +183,8 @@ def ann(xml_dir, ann_dir):
         try:
             root = ET.parse(file).getroot()
             name = ""
-            xx = os.path.join(Brat_dir,filename+'.ann', )
+            filename_ann = filename.replace("xml", "ann")
+            xx = os.path.join(Brat_dir,filename_ann)
             f = open(xx, "w")
             counter = 1
             pre_header = ""

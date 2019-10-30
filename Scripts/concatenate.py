@@ -29,15 +29,17 @@ def analysis(ann_section, ann_variable, ann_final):
         final_dict = dict()
         brat_dict = dict()
         header_dic = set()
-        file_name = f.split(".",1)
+        # file_name = f.split(".",1)
         stri = ""
         if f.endswith(".ann"):
             counter = 1
 
-            if (file_name[0].startswith("sonespases")):
-                final_brat_file = os.path.join(FINAL_BRAT,file_name[0]+".ann")
-            else:
-                final_brat_file = os.path.join(FINAL_BRAT,file_name[0]+".utf8.ann")
+            # if (file_name[0].startswith("sonespases")):
+            #     final_brat_file = os.path.join(FINAL_BRAT,file_name[0]+".ann")
+            # else:
+            #     final_brat_file = os.path.join(FINAL_BRAT,file_name[0]+".utf8.ann")
+
+            final_brat_file = os.path.join(FINAL_BRAT, f)
             with open(final_brat_file, "w") as final_brat_f:
 
                 with open(os.path.join(PIPELINE_BRAT,f), "r") as pipeline_file:
@@ -87,10 +89,12 @@ def analysis(ann_section, ann_variable, ann_final):
                         print(last_line)
                 pipeline_file.close()
 
-                if (file_name[0].startswith("sonespases")):
-                    header_brat_file = os.path.join(HEADER_BRAT, file_name[0] + ".txt.xml.ann")
-                else:
-                    header_brat_file = os.path.join(HEADER_BRAT, file_name[0] + ".utf8.txt.xml.ann")
+                # if (file_name[0].startswith("sonespases")):
+                #     header_brat_file = os.path.join(HEADER_BRAT, file_name[0] + ".txt.xml.ann")
+                # else:
+                #     header_brat_file = os.path.join(HEADER_BRAT, file_name[0] + ".utf8.txt.xml.ann")
+
+                header_brat_file = os.path.join(HEADER_BRAT, f)
 
                 with open(header_brat_file, "r") as header_file:
                     pre_header = ""
