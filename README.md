@@ -120,7 +120,7 @@ for a same file and comparing the manually annotated files with pre-annotated fi
 
 For Detecting Header we use this commad:
 
-	Python3 header-detector.py [options] 
+	python3 header-detector.py [options] 
 
 Options:
 <pre>
@@ -130,7 +130,7 @@ Options:
 
 For statistical Analysis of headers we use this commad:
 
-	Python3 parser.py [options] 
+	python3 parser.py [options] 
 
 Options:
 <pre>
