@@ -20,7 +20,7 @@ compares the pre-annotations with the eventual manual annotations to monitor the
 
 ## Directory structure
 
-- [**`scripts/`**](scripts/): 
+- [**`Scripts/`**](Scripts/): 
 This folder contains the scripts needed to detect headers, calculate statistical analysis of headers 
 and comparing different annotations records (different annotators have done that) for the same file
 and finally comparing the manually annotated files with pre-annotated files by [SpaCTeS tool](https://github.com/siabar/SpaCTeS).
