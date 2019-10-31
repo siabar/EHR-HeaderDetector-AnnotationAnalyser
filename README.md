@@ -4,14 +4,18 @@
 
 ## Introduction
 
-This project has several scripts, one of them performs EHR normalization 
-by detecting headers from documents and mapping those sections into 
-any desired archetype. 
-The detected headers also will save in a BRAT file with their begin and end spans.
+This project is about (pre-)annotation of section headers in EHR. It includes different scripts to: 
+(i) annotate and normalize section headers in EHR, 
+(ii) generate statistical analysis on the annotated files, 
+(iii) merge the annotations in BRAT and 
+(iv) to monitor and assess the eventual manual annotation task done on the pre-annotated documents.
 
-Alos there is a script for doing statistical analysis on the detected headers in the given corpus
-and comparing manually annotated files by annotators with pre-annotated files and 
-do statistical analysis on the results.
+These scripts were used to identify and normalise section headers in discharge reports. 
+The generated annotations can be loaded in the BRAT tool and merged with additional annotations.
+Once all annotations are loaded in BRAT, expert humans can do the eventual 
+manual annotation (by validating and/or editing the automatic pre-annotations). 
+The project includes script that computes intera-annotation agreement (IAA) and 
+compares the pre-annotations with the eventual manual annotations to monitor the human annotation task.
 
 
 ## Directory structure
