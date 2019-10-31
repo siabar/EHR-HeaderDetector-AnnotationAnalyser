@@ -22,8 +22,8 @@ def init(Set):
 
     annotators_dir = os.path.join(main_dir, "annotators/")
     pre_processing_dir = os.path.join(main_dir, "pre_processing")
-    post_processing_ann_dir = os.path.join(main_dir, "IAA", Set)
-    post_processing_csv_dir = os.path.join(main_dir, "post_processing_csv", Set)
+    post_processing_ann_dir = os.path.join(main_dir, "IAA_ANN", Set)
+    post_processing_csv_dir = os.path.join(main_dir, "IAA_CSV", Set)
     all_differences_csv_dir = os.path.join(main_dir, "analysis")
 
     shutil.rmtree(post_processing_ann_dir, ignore_errors=True)

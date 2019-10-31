@@ -102,7 +102,7 @@ def header(line):
         return "", False
 
 
-def init(TXT_Directory, XML_Directory):
+def xml(TXT_Directory, XML_Directory):
 
     HEADER = os.path.join(parentDir, "data/headers.txt")
     headers_name_dic, headers_type_dic = Headers_dic(HEADER)
@@ -115,7 +115,8 @@ def init(TXT_Directory, XML_Directory):
         if text_files.endswith(".txt"):
             counter = 1
             current_section = ""
-            XML_FILE = os.path.join(XML_Directory,text_files + ".xml")
+            xml_files = text_files[0:-4]
+            XML_FILE = os.path.join(XML_Directory,xml_files + ".xml")
             os.makedirs(XML_Directory, exist_ok=True)
             with open(XML_FILE, "w") as w:
                 w.write("<?xml version='1.0' encoding='UTF-8'?>\n")
@@ -224,5 +225,5 @@ if __name__ == "__main__":
             XML_Directory = TXT_Directory.replace("TXT", "XML_SECTION")
             ANN_Directory = XML_Directory.replace("XML_SECTION", "ANN_SECTION")
 
-            init(TXT_Directory, XML_Directory)
+            xml(TXT_Directory, XML_Directory)
             ann(XML_Directory, ANN_Directory)

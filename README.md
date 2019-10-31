@@ -40,9 +40,7 @@ and finally comparing the manually annotated files with pre-annotated files by [
 
   - [**`comparing_ann.py`**](Scripts/comparing_ann.py): Monitor and assess the eventual manual annotation task done on the pre-annotated documents.
     1) Computes inter-annotation agreement (IAA).
-       Outputs are:
-       [IAA](Annotated/IAA) Directory, which includes ANN files with all manual annotations of annotators for given files and
-       [CSV](Annotated/post_processing_csv) Directory, which shows all opinion of annotators for each annotations of given files.
+       Outputs are [IAA_ANN](Annotated/IAA_ANN) [IAA_CSV](Annotated/IAA_CSV) Directories, which include results of computing inter-annotation agreement for each document (ANN and CSV formats, Respectively). Each file has all manual annotations of annotators for the given document.
     2) Compares the [the eventual manual annotations](Annotated/annotators) with [the pre-annotations](Annotated/cTAKES) by [SpaCTeS tool](https://github.com/siabar/SpaCTeS) to monitor the human annotation task.
        It detects which pre-annotated variables have been changed, accepted, removed and 
        which variables have been added by annotators.

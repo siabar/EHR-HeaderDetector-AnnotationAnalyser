@@ -17,7 +17,7 @@ fileDir = os.path.dirname(os.path.abspath(__file__))
 parentDir = os.path.dirname(fileDir)
 import unidecode
 
-def analysis(ann_section, ann_variable, ann_final):
+def merge(ann_section, ann_variable, ann_final):
 
     HEADER_BRAT = ann_section
     PIPELINE_BRAT =  ann_variable
@@ -175,4 +175,4 @@ if __name__ == "__main__":
 
 
 
-            analysis(HEADER_BRAT, PIPELINE_BRAT, FINAL_BRAT)
+            merge(HEADER_BRAT, PIPELINE_BRAT, FINAL_BRAT)
