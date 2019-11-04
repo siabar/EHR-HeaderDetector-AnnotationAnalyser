@@ -8,7 +8,7 @@ This project is about (pre-)annotation of section headers in EHR. It includes di
 (i) annotate and normalize section headers in EHR, 
 (ii) generate statistical analysis on the annotated files, 
 (iii) merge the annotations in BRAT and 
-(iv) to monitor and assess the eventual manual annotation task done on the pre-annotated documents.
+(iv) monitor and assess the eventual manual annotation task done on the pre-annotated documents.
 
 These scripts were used to identify and normalise section headers in discharge reports. 
 The generated annotations can be loaded in the BRAT tool and merged with additional annotations.
@@ -108,8 +108,8 @@ This folder contains the results of monitoring and assessing the eventual manual
 
   - [**`annotators/`**](Annotated/annotators/): original files for each annotator.
   - [**`pre_processing/`**](Annotated/pre_processing/): directory for cleaned ANN files after removing un-necassery annotations.
-  - [**`IAA/`**](Annotated/IAA/): includes ANN files with all manual annotations of annotators for given files
-  - [**`post_processing_csv/`**](Annotated/post_processing_csv/):  Result of comparing annotators' activities in csv files
+  - [**`IAA_ANN/`**](Annotated/IAA_ANN/): includes ANN files with all manual annotations of annotators for given files
+  - [**`IAA_CSV/`**](Annotated/IAA_CSV/):  Result of comparing annotators' activities in csv files
     (shows all opinion of annotators for each annotations of given files.).
   - [**`analysis/`**](Annotated/analysis/): Compares the [the eventual manual annotations](Annotated/annotators) with [the pre-annotations](Annotated/cTAKES) by [SpaCTeS tool](https://github.com/siabar/SpaCTeS) to monitor the human annotation task.
     It detects which pre-annotated variables have been changed, accepted, removed and which variables have been added by annotators.

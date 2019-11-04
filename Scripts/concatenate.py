@@ -170,7 +170,7 @@ if __name__ == "__main__":
 
             HEADER_BRAT = os.path.join(main_root, text_files, Set)
             PIPELINE_BRAT = HEADER_BRAT.replace("ANN_SECTION","ANN_VARIABLE")
-            FINAL_BRAT =    HEADER_BRAT.replace("ANN_SECTION","ANN_FINAL")
+            FINAL_BRAT = HEADER_BRAT.replace("ANN_SECTION","ANN_FINAL")
             os.makedirs(os.path.join(FINAL_BRAT), exist_ok=True)
 
 
