@@ -4,6 +4,7 @@
 *.ann
 *.xmi
 *.png
+*.iml
 *.DS_Store
 
 
