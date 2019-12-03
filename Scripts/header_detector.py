@@ -80,7 +80,8 @@ def similarity(temp_line):
 
 
 def header_finder(line):
-    if line and ((line[0].isalpha() and line[0].isupper()) or not line[0].isalpha()) and line[0] != '-' \
+    # and line[0] != '-' \
+    if line and ((line[0].isalpha() and line[0].isupper()) or not line[0].isalpha()) \
             and not line.startswith("Nº") and not line.upper().startswith("SIN"):
         temp_line = " ".join(line.split()).upper()
         if temp_line in headers_name_dic.keys():
@@ -95,10 +96,15 @@ def header_finder(line):
         return "", False
 
 
-def xml(txt_directory, xml_directory):
-    header_file = os.path.join(parentDir, "data/headers.txt")
-    headers_dic(header_file)
+def xml(txt_directory, xml_directory, sett):
+    if int(sett.split("_")[0]) <= 2:
+        header_file = os.path.join(parentDir, "/data/headers_original_bunch_1-2.txt")
+    elif int(sett.split("_")[0]) == 3:
+        header_file = os.path.join(parentDir, "/data/headers_13.11.2019_bunch_3.txt")
+    else:
+        header_file = os.path.join(parentDir, "data/headers.txt")
 
+    headers_dic(header_file)
     for text_files in os.listdir(txt_directory):
         print(text_files)
         if text_files.endswith(".txt"):
@@ -115,7 +121,8 @@ def xml(txt_directory, xml_directory):
                         line_size = len(line)
                         pre_line, pos_line = preprocessing(line)
                         if pre_line:
-                            pre_line = pre_line.strip()
+                            pre_line = pre_line.rstrip()
+
 
                         header_name, isheader = header_finder(pre_line)
                         if isheader:
@@ -145,6 +152,14 @@ def xml(txt_directory, xml_directory):
                                 if len(pre_line) < len(line.strip()):
                                     line = line[len(pre_line):]
                                     marked = True
+
+                                if begin == 546:
+                                    print("TEST")
+                                before_lstrip = len(pre_line)
+                                pre_line = pre_line.lstrip()
+                                afteR_lstrip = len(pre_line)
+                                begin += (before_lstrip - afteR_lstrip)
+                                line_size -= (before_lstrip - afteR_lstrip)
 
                                 w.write("<Section span_begin=\"" + str(
                                     begin) + "\" span_end=\"" + span_end + "\" id=\"" + header_name + "\" type=\"" +
@@ -193,10 +208,13 @@ def ann(xml_dir, ann_dir):
                 pure_name_eq = name.split("=", 2)
                 pure_name = pure_name_eq[0].split("-!-", 2)
 
+                # if pure_name.startswith(" Ana lít ica d 'urgè ncies"):
+                #     print("Checkpoint")
+
                 name = pure_name[0]
                 if (x != "DEFAULT_HEADER") and (pre_header != x):
                     f.write("T" + str(counter) + "\t" + x + " " + span_begin + " " + span_end + "\t" + pure_name[
-                        0].strip() + "\n")
+                        0].rstrip() + "\n")
                     counter += 1
                 pre_header = x
             f.close()
@@ -217,5 +235,5 @@ if __name__ == "__main__":
             XML_Directory = TXT_Directory.replace("TXT", "XML_SECTION")
             ANN_Directory = XML_Directory.replace("XML_SECTION", "ANN_SECTION")
 
-            xml(TXT_Directory, XML_Directory)
+            xml(TXT_Directory, XML_Directory, Set)
             ann(XML_Directory, ANN_Directory)
