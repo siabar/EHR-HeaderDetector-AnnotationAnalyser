@@ -15,8 +15,8 @@ NOTE:
 In detecting SECTION, sometimes we have "-" or "*" at the begining of detected section, so we are fixing spans of sections if we have punctuations at first or at end (expect of dot because it implies of Abbreviation, such s PROC. or DIAG. , ...).
 
 
----------------BUNCH 3------------------
-On 17 December 2019, the total removed documents for bunch 3 are:
+---------------BUNCH 3->5------------------
+On 17 December 2019, the total removed documents for bunch 5 are:
 
 REMOVE: isabel/05/437584095.utf8.ann
 REMOVE: isabel/05/415598627.utf8.ann
@@ -57,6 +57,8 @@ REMOVE: carmen/05/328962732.utf8.ann
 REMOVE: carmen/05/325783644.utf8.ann
 REMOVE: carmen/05/400538920.utf8.ann
 REMOVE: carmen/05/sonespases_984874532.ann
+
+
 
 Carmen: 7
 Eugenia: 3
@@ -130,5 +132,114 @@ isabel -> victoria
 victoria -> carmen
 
 
----------------BUNCH 2------------------
+---------------BUNCH 2->6------------------
+On 09 Janurary 2020, the total removed documents for bunch 6 are:
+Isabel	0092
+Isabel	6844
+Isabel	9077
+Isabel	0229
+Isabel	3138
+Isabel	8493
+Isabel	1436
+Isabel	2570
+Isabel	5263
+Isabel	4225
+Victòria	0754
+Victòria	3806
+Victòria	6380
+Victòria	6777
+Victòria	7022
+Victòria	6810
+Carmen	4030
+Carmen	0001
+Carmen	7808
+Carmen	9418
+Carmen	6661
+Carmen	4172
+Carmen	6001
+Isabel	7976
+Isabel	8294
+Isabel	3523
+Isabel	8584
+Isabel	2435
+
+Carmen: 6
+Eugenia: 7
+Isabel: 5
+Victoria: 9
+
+
+Also in bunch 6, we did not need to have duplicated files in bunch 2 be repeated again, so we removed them as well:
+
+Carmen: 3
+Eugenia: 5
+Isabel: 4
+Victoria: 4
+
+
+Because we wanted annotators in each bunch annotating 50 documents, we replace the removed documents with the below ones from bunch 5+  
+
+These documents has been replaced with irrelavant documents in bunch 2:
+
+Carmen:
+453999295.utf8.txt
+454008269.utf8.txt
+454016632.utf8.txt
+454048145.utf8.txt
+
+
+Eugenia:
+454049504.utf8.txt
+454172489.utf8.txt
+454186197.utf8.txt
+454186643.utf8.txt
+454186649.utf8.txt
+454489273.utf8.txt
+454573776.utf8.txt
+
+Isabel:
+455074066.utf8.txt
+455412988.utf8.txt
+471601348.utf8.txt
+482667563.utf8.txt
+
+
+Victoria:
+454234824.utf8.txt
+454236231.utf8.txt
+454241291.utf8.txt
+454242674.utf8.txt
+454350643.utf8.txt
+454372151.utf8.txt
+454387746.utf8.txt
+454849035.utf8.txt
+
+
+
+These documents has been replaced with dublicated once in bunch 2:
+These 10 files have been duplicated between annotators for having IAA with them as well.
+
+453839852.utf8.txt (Carmen, Eugenia)
+453839628.utf8.txt (Carmen, Eugenia)
+
+453663492.utf8.txt (Eugenia, Isabel)
+453636815.utf8.txt (Eugenia, Isabel)
+
+453588729.utf8.txt (Isabel, Victoria)
+453587772.utf8.txt (Isabel, Victoria)
+
+453586124.utf8.txt (Victoria, Carmen)
+453585405.utf8.txt (Victoria, Carmen)
+
+453574411.utf8.txt (Carmen, Isabel)
+453444276.urf8.txt (Eugenia, Victoria)
+
+
+Also we shift documents from bunch 2 to 6 based on:
+carmen -> eugenia
+eugebia -> isabel
+isabel -> victoria
+victoria -> carmen
+
+
 

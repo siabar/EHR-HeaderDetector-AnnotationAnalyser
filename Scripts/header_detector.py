@@ -148,7 +148,10 @@ class header_detector():
                                 marked = False
                                 if current_section:
                                     if current_section == header_name:
-                                        marked = True
+                                        # marked = True
+                                        w.write("\t]]></text>\n</Section>\n")
+                                        marked = False
+
                                     else:
                                         w.write("\t]]></text>\n</Section>\n")
                                         marked = False
@@ -261,7 +264,8 @@ class header_detector():
                     #     print("Checkpoint")
 
                     name = pure_name[0]
-                    if (x != "DEFAULT_HEADER") and (pre_header != x):
+                    # if (x != "DEFAULT_HEADER") and (pre_header != x):
+                    if (x != "DEFAULT_HEADER"):
                         f.write("T" + str(counter) + "\t" + x + " " + span_begin + " " + span_end + "\t" + pure_name[
                             0].rstrip() + "\n")
                         counter += 1
