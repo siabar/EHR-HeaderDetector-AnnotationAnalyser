@@ -132,7 +132,8 @@ isabel -> victoria
 victoria -> carmen
 
 
----------------BUNCH 2->6------------------
+---------------BUNCH 2-> 6 and 7------------------
+
 On 09 Janurary 2020, the total removed documents for bunch 6 are:
 Isabel	0092
 Isabel	6844
@@ -168,29 +169,31 @@ Eugenia: 7
 Isabel: 5
 Victoria: 9
 
+Since bunch 2, we improved the pipeline a lot. Therefore we do not want to calculate IAA based on bunch 2 and 6. We divided bunch 2 into 2 bunches (bunch 6 and 7), and duplicated files in bunch 6 and 7 between annotators to have shared files for calculating IAA. 
 
-Also in bunch 6, we did not need to have duplicated files in bunch 2 be repeated again, so we removed them as well:
+----BUNCH 2->6------
 
-Carmen: 3
-Eugenia: 5
-Isabel: 4
-Victoria: 4
 
+For bunch 6: we used 90 unique files from bunch 2:
+22 shared files between:
+Carmen and Eugenia (22 files)
+Eugenia and Isabel (22 files)
+Isabel and Victoria (22 files)
+Victoria and Carmen (22 files)
+and 1 shared file between
+Carmen and Isabel (1 file)
+Eugenia and Victoria (1 file)
 
 Because we wanted annotators in each bunch annotating 50 documents, we replace the removed documents with the below ones from bunch 5+  
-
-These documents has been replaced with irrelavant documents in bunch 2:
 
 Carmen:
 453999295.utf8.txt
 454008269.utf8.txt
 454016632.utf8.txt
 454048145.utf8.txt
-
+454372151.utf8.txt
 
 Eugenia:
-454049504.utf8.txt
-454172489.utf8.txt
 454186197.utf8.txt
 454186643.utf8.txt
 454186649.utf8.txt
@@ -198,11 +201,11 @@ Eugenia:
 454573776.utf8.txt
 
 Isabel:
-455074066.utf8.txt
 455412988.utf8.txt
 471601348.utf8.txt
 482667563.utf8.txt
-
+454849035.utf8.txt
+454387746.utf8.txt
 
 Victoria:
 454234824.utf8.txt
@@ -210,32 +213,31 @@ Victoria:
 454241291.utf8.txt
 454242674.utf8.txt
 454350643.utf8.txt
-454372151.utf8.txt
-454387746.utf8.txt
-454849035.utf8.txt
+
+Also we shift documents in bunch 6 and from 5+ to 6+ based on:
+carmen -> eugenia
+eugebia -> isabel
+isabel -> victoria
+victoria -> carmen
+
+
+----BUNCH 2->7------
+
+For bunch 6: we used 75 unique files from bunch 2:
+18 shared files between:
+Carmen and Eugenia (18 files)
+Eugenia and Isabel (18 files)
+Isabel and Victoria (18 files)
+Victoria and Carmen (18 files)
+and 3 shared file between
+Carmen and Isabel (1 file)
+Eugenia and Victoria (2 file)
+
+Because we wanted annotators in each bunch annotating 50 documents, we replace the rest documents from original dataset:  
 
 
 
-These documents has been replaced with dublicated once in bunch 2:
-These 10 files have been duplicated between annotators for having IAA with them as well.
-
-453839852.utf8.txt (Carmen, Eugenia)
-453839628.utf8.txt (Carmen, Eugenia)
-
-453663492.utf8.txt (Eugenia, Isabel)
-453636815.utf8.txt (Eugenia, Isabel)
-
-453588729.utf8.txt (Isabel, Victoria)
-453587772.utf8.txt (Isabel, Victoria)
-
-453586124.utf8.txt (Victoria, Carmen)
-453585405.utf8.txt (Victoria, Carmen)
-
-453574411.utf8.txt (Carmen, Isabel)
-453444276.urf8.txt (Eugenia, Victoria)
-
-
-Also we shift documents from bunch 2 to 6 based on:
+Also we shift documents in bunch 7 based on:
 carmen -> eugenia
 eugebia -> isabel
 isabel -> victoria

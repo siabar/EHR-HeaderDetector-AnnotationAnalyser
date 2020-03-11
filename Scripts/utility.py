@@ -20,5 +20,7 @@ class utility():
             header_file = os.path.join(self.parentDir, "data/headers_17.12.2019_bunch_5.txt")
         elif int(self.bunch.split("+")[0]) == 6:
             header_file = os.path.join(self.parentDir, "data/headers_11.01.2020_bunch_6.txt")
+        elif int(self.bunch.split("+")[0]) == 7:
+            header_file = os.path.join(self.parentDir, "data/headers_11.01.2020_bunch_7.txt")
 
         return header_file
