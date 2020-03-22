@@ -27,6 +27,12 @@ class header_detector():
         self.parentDir = os.path.dirname(self.fileDir)
 
     def headers_dic(self, header):
+        '''
+        :param path of header's file:
+        :return:
+        headers_type_dic: A disctionary that contains sections as keys and their categories as values
+        header_name_dic : A dictionary that contains categories as keys and their types as values
+        '''
         with open(header, "r") as h:
             for line in h:
                 row_header = line.strip().split("\t")
@@ -36,8 +42,6 @@ class header_detector():
                     self.headers_name_dic[row_header[2]] = row_header[1]
                 if not row_header[1] in self.headers_type_dic.keys():
                     self.headers_type_dic[row_header[1]] = row_header[0]
-
-        # return headers_name_dic, headers_type_dic
 
     def trim(self, name):
         for i, ch in enumerate(reversed(name)):
@@ -66,6 +70,11 @@ class header_detector():
             return self.trim_name(pre_line[0]), ""
 
     def similarity_diff(self, temp_line):
+        '''
+        :param temp_line is given line:
+        :return:
+        return the most similarity section in defined sections with the given line
+        '''
         list_similarities = difflib.get_close_matches(temp_line, self.headers_name_dic.keys(), 1, 0.85)
         if len(list_similarities) > 0:
             return self.headers_name_dic.get(list_similarities[0]), True
@@ -95,6 +104,10 @@ class header_detector():
             return "", False
 
     def header_finder(self, line):
+        '''
+        :param line:
+        :return Fasle, or True if the given line is a header:
+        '''
         # and line[0] != '-' \
         if line and ((line[0].isalpha() and line[0].isupper()) or not line[0].isalpha()) \
                 and not line.startswith("Nº") and not line.upper().startswith("SIN"):
@@ -111,6 +124,12 @@ class header_detector():
             return "", False
 
     def xml(self, txt_directory, xml_directory, sett):
+        '''
+        :param txt_directory: Directory of text input
+        :param xml_directory: Directoy of the output path that contains XML files
+        :param sett: which bunch is processing
+        :return: convert txt files to xml files and save them in xml_directory
+        '''
         shutil.rmtree(xml_directory, ignore_errors=True)
         os.makedirs(xml_directory, exist_ok=True)
 
@@ -208,8 +227,15 @@ class header_detector():
                     w.write("</ehr>")
 
     def span_fixer(self, text, start_span, end_span):
-        if text.lower().startswith("diag"):
-            check = 0
+        '''
+        :param text:  input string
+        :param start_span: current start span of text
+        :param end_span: current end span of text
+        :return: fix the spans of the given text. for example if there is a white space and begin and end of the given input.
+        '''
+
+        # if text.lower().startswith("diag"):
+        #     check = 0
         punctuation = string.punctuation.replace(".", "")
 
         before_rstrip = len(text)
@@ -234,6 +260,11 @@ class header_detector():
         return text, start_span, end_span
 
     def ann(self, xml_dir, ann_dir):
+        '''
+        :param xml_dir: input is a directory of xml files
+        :param ann_dir: ouput is a directory of ann files
+        :return: convert xml files to ann files and save the results in ann_dir
+        '''
         shutil.rmtree(ann_dir, ignore_errors=True)
         os.makedirs(os.path.join(ann_dir), exist_ok=True)
         files = glob.glob(xml_dir + "/*.xml")
