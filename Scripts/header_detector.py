@@ -12,7 +12,7 @@ import glob
 import ntpath
 import sys
 
-from Scripts.utility import utility
+from Scripts.utility import *
 
 
 class header_detector():
@@ -27,12 +27,13 @@ class header_detector():
         self.parentDir = os.path.dirname(self.fileDir)
 
     def headers_dic(self, header):
-        '''
-        :param path of header's file:
+        """
+        :param header: path of header's file
         :return:
-        headers_type_dic: A disctionary that contains sections as keys and their categories as values
-        header_name_dic : A dictionary that contains categories as keys and their types as values
-        '''
+            headers_type_dic: A dictionary that contains sections as keys and their categories as values
+            header_name_dic : A dictionary that contains categories as keys and their types as values
+        """
+
         with open(header, "r") as h:
             for line in h:
                 row_header = line.strip().split("\t")
@@ -44,6 +45,9 @@ class header_detector():
                     self.headers_type_dic[row_header[1]] = row_header[0]
 
     def trim(self, name):
+        """
+            It is not used
+        """
         for i, ch in enumerate(reversed(name)):
             if ('a' <= ch <= 'z') or ('A' <= ch <= 'Z'):
                 if i == 0:
@@ -52,6 +56,11 @@ class header_detector():
                     return name[:-1 * i]
 
     def trim_name(self, name):
+        """
+        :param name: input string
+        :return:
+            remove unalpha chars at the end of the input
+        """
         unaccent_name = unidecode.unidecode(name)
         if unaccent_name.upper() in self.abbreviation_headers:
             return name
@@ -63,45 +72,35 @@ class header_detector():
                     return name[:-1 * i]
 
     def preprocessing(self, line):
+        """
+        Split the given line by following punctuations: ":", "(", "/"
+
+        :param line:
+        :return:
+            return left part and right part of the splitted line
+        """
         pre_line = line.split(":")[0].split("(")[0].split("/")
         if len(pre_line) > 1:
             return self.trim_name(pre_line[0]), self.trim_name(pre_line[1])
         else:
             return self.trim_name(pre_line[0]), ""
 
-    def similarity_diff(self, temp_line):
-        '''
-        :param temp_line is given line:
+
+
+    def similarity_diff(self, line):
+        """
+        :param line: input line
         :return:
-        return the most similarity section in defined sections with the given line
-        '''
-        list_similarities = difflib.get_close_matches(temp_line, self.headers_name_dic.keys(), 1, 0.85)
+            The most similarity defined section with the given line
+        """
+
+        list_similarities = difflib.get_close_matches(line, self.headers_name_dic.keys(), 1, 0.85)
         if len(list_similarities) > 0:
             return self.headers_name_dic.get(list_similarities[0]), True
         else:
             return "", False
 
-    def similarity(self, temp_line):
-        max_score = -1
-        final_header = ""
-        for key in self.headers_name_dic.keys():
 
-            # Levenshtein
-            # score = lev.ratio(temp_line,key)
-            # score = textdistance.levenshtein(temp_line, key)
-
-            # jaro_winkler
-            score = textdistance.jaro_winkler(temp_line, key)
-
-            if score > max_score:
-                max_score = score
-                final_header = self.headers_name_dic.get(key)
-                Final_key = key
-
-        if max_score > self.threshold:
-            return final_header, True
-        else:
-            return "", False
 
     def header_finder(self, line):
         '''
@@ -124,23 +123,22 @@ class header_detector():
             return "", False
 
     def xml(self, txt_directory, xml_directory, sett):
+        """
+        :param txt_directory: Directory of text files as input
+        :param xml_directory: Directory of xml files as output
+        :param sett: Number of bunch
+        :return: detect headers of the given text files and save them as a xml files in output directory (xml_directory)
         '''
-        :param txt_directory: Directory of text input
-        :param xml_directory: Directoy of the output path that contains XML files
-        :param sett: which bunch is processing
-        :return: convert txt files to xml files and save them in xml_directory
-        '''
+        """
         shutil.rmtree(xml_directory, ignore_errors=True)
         os.makedirs(xml_directory, exist_ok=True)
 
-        unti = utility(sett, self.parentDir)
-        header_file = unti.header_path()
+
+        header_file = header_path(sett, self.parentDir)
 
         self.headers_dic(header_file)
         for text_files in os.listdir(txt_directory):
             print(text_files)
-            if text_files.startswith('375981881'):
-                check = 0
             if text_files.endswith(".txt"):
                 current_section = ""
                 xml_files = text_files[0:-4]
@@ -191,16 +189,6 @@ class header_detector():
                                         line = line[len(pre_line):]
                                         marked = True
 
-                                    # # if begin == 546:
-                                    # #     check = 0
-                                    # before_lstrip = len(pre_line)
-                                    # pre_line_1 = pre_line.lstrip()
-                                    # afteR_lstrip = len(pre_line_1)
-                                    # begin_1 = begin + (before_lstrip - afteR_lstrip)
-                                    # line_size_1 = line_size - (before_lstrip - afteR_lstrip)
-                                    # if '*' in pre_line:
-                                    #     check = 0
-
                                     begin_original = begin
                                     pre_line, begin, span_end = self.span_fixer(pre_line, begin, int(span_end))
                                     line_size -= begin - begin_original
@@ -227,15 +215,13 @@ class header_detector():
                     w.write("</ehr>")
 
     def span_fixer(self, text, start_span, end_span):
-        '''
-        :param text:  input string
-        :param start_span: current start span of text
-        :param end_span: current end span of text
-        :return: fix the spans of the given text. for example if there is a white space and begin and end of the given input.
-        '''
+        """
+        :param text:  input
+        :param start_span: start span of text
+        :param end_span:  end span of text
+        :return: fix the spans of the given text. for example if strip white space at begin or end of the given input.
+        """
 
-        # if text.lower().startswith("diag"):
-        #     check = 0
         punctuation = string.punctuation.replace(".", "")
 
         before_rstrip = len(text)
@@ -260,11 +246,11 @@ class header_detector():
         return text, start_span, end_span
 
     def ann(self, xml_dir, ann_dir):
-        '''
-        :param xml_dir: input is a directory of xml files
-        :param ann_dir: ouput is a directory of ann files
-        :return: convert xml files to ann files and save the results in ann_dir
-        '''
+        """
+        :param xml_dir: Directory of xml files as input
+        :param ann_dir: Directory of ann files as output
+        :return: read xml files and save headers in the ann file
+        """
         shutil.rmtree(ann_dir, ignore_errors=True)
         os.makedirs(os.path.join(ann_dir), exist_ok=True)
         files = glob.glob(xml_dir + "/*.xml")
@@ -279,7 +265,6 @@ class header_detector():
                 xx = os.path.join(brat_dir, filename_ann)
                 f = open(xx, "w")
                 counter = 1
-                pre_header = ""
                 for type_tag in root.findall('Section'):
 
                     for type_child in type_tag.findall('name'):
@@ -291,24 +276,21 @@ class header_detector():
                     pure_name_eq = name.split("=", 2)
                     pure_name = pure_name_eq[0].split("-!-", 2)
 
-                    # if pure_name.startswith(" Ana lít ica d 'urgè ncies"):
-                    #     print("Checkpoint")
 
                     name = pure_name[0]
-                    # if (x != "DEFAULT_HEADER") and (pre_header != x):
                     if (x != "DEFAULT_HEADER"):
                         f.write("T" + str(counter) + "\t" + x + " " + span_begin + " " + span_end + "\t" + pure_name[
                             0].rstrip() + "\n")
                         counter += 1
-                    pre_header = x
                 f.close()
             except:
                 print("ERROR", filename, sys.exc_info())
 
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(description="analysis")
-    parser.add_argument('--set', help='Which set is going to compare')
+    parser.add_argument('--set', help='Which bunch is going to process')
     args = parser.parse_args()
     Set = args.set
 

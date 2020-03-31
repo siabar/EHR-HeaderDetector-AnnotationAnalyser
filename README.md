@@ -1,4 +1,4 @@
-# EHR-EHR-HeaderDetector-AnnotationAnalyser: Electronic Health Record (EHR) Header Detector and Annotation Analyser #
+# EHR-HeaderDetector-AnnotationAnalyser: Electronic Health Record (EHR) Header Detector and Annotation Analyser #
 
 
 
@@ -98,8 +98,8 @@ Options:
 
 Options:
 <pre>
---filter     Filter files based on needed headers
---strict     Show just analysis of filtered headers
+--filter    Select/filter the files that have all needed headers (importat_headers.txt in Data directory) [True/False]
+--strict    Analysis just of selected files (--filter) [True/False]
 --set       Number of the bunch [For example 01]
 </pre>
 
