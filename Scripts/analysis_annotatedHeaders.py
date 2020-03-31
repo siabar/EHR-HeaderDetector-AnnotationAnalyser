@@ -9,6 +9,7 @@ import pandas as pd
 import argparse
 import csv
 import unidecode
+import collections
 
 fileDir = os.path.dirname(os.path.abspath(__file__))
 parentDir = os.path.dirname(fileDir)
@@ -25,6 +26,17 @@ def trim_name(name):
 
 
 def get_allinfo(xml_files, filter=False, move=True):
+    """
+    :param xml_files: input files
+    :param filter: Select/filter the files that have all needed headers (importat_headers.txt in Data directory) [True/False]
+    :param move: if move is True, copy the selected files based (based on filter option) to a new directory
+    :return:
+        dictOfFiles: a dictionary that files are keys and the headers of the files are values
+        dictOfHeaders: a dictionary that headers are keys and the files that have that headers are values
+        header_cooccurrences: a dictionary that headers are keys and a dictionary of its co-occurance headers and number of occure are values
+        dictOfHeaders_childs: a dictionary that headers are keys and a list of variants of the headers are values
+    """
+
     header_list = os.path.join(parentDir, "data/headers.txt")
     dictOfHeaders = dict()
     dictOfHeaders_childs = dict()
@@ -46,8 +58,6 @@ def get_allinfo(xml_files, filter=False, move=True):
     count = 0
     for file in xml_files:
         filename = ntpath.basename(file)
-
-        # print(filename)
 
         tags = []
         try:
@@ -129,91 +139,66 @@ def get_allinfo(xml_files, filter=False, move=True):
 
 
 def showbasicinfo(x, y, corpus):
+    """
+    :param x: a list of all files
+    :param y: a list of number of headers of each file (in order of x)
+    :param corpus: Name of Bunch
+    :return:
+        PLOT the data
+    """
     plt_dir = os.path.join(parentDir, "analysis_headers/PLOT/")
     os.makedirs(plt_dir, exist_ok=True)
     plot_file = os.path.join(plt_dir, "Fiq_" + corpus + ".png")
-    # x = []
-    # y = []
-    # for key, value in dictOfHeaders.items():
-    #     if (len(value) > 0):
-    #         x.append(key)
-    #         y.append(len(value))
-
-    # print(x, y)
 
     d = {"Headers": x, "Filesnumber": y}
     data = pd.DataFrame(d)
     data.set_index('Headers', inplace=True)
 
-    # Initialize the plot
-    # fig = plt.figure(figsize=(20,10))
-    #
-    # ax1 = fig.add_subplot(121)
-    # ax2 = fig.add_subplot(122)
-    # Prepare the data
 
     colors = plt.get_cmap()(
         np.linspace(0.15, 0.85, len(y)))
 
-    # PLOT the data
-
-    # ax1.barh(x, y, color=colors, align='center')
-    # ax1.set_xlabel('Number of Files')
-    # ax1.set_ylabel('Name of Headers')
-    # ax1.set_title('How many files have each given headers')
-    # sorted_list = sorted(y)
-    # ax1.set_xticks(sorted_list)
 
     ax1 = data.sort_values(by='Filesnumber').plot(kind='barh', figsize=(30, 20), color='#86bf91', fontsize=8,
                                                   legend=False)
 
-    from matplotlib.ticker import StrMethodFormatter
 
     ax1.set_alpha(0.4)
-    # ax1.set_title("How many files have each given header", fontsize=12)
     ax1.set_xlabel("Number of Files", labelpad=20, fontsize=12)
     ax1.set_ylabel("Name of Headers", labelpad=20, fontsize=12)
     totals = []
     for i in ax1.patches:
         totals.append(i.get_width())
 
-    # set individual bar lables using above list
     total = sum(totals)
 
-    # set individual bar lables using above list
     for i in ax1.patches:
-        # get_width pulls left or right; get_y pushes up or down
-        # ax1.text(i.get_width() + .3, i.get_y() + .18,
-        #          str(round((i.get_width() / total) * 100, 2)) + '%' + " (" + str(i.get_width()) + ")", fontsize=10,
-        #          color='dimgrey')
+
         ax1.text(i.get_width() + .3, i.get_y() + .10,
                  "  " + str(i.get_width()), fontsize=10,
                  color='dimgrey')
 
-    # invert for largest on top
-    # ax1.invert_yaxis()
-    #
+
     plt.margins(0.1)
     plt.subplots_adjust(left=0.25)
     plt.savefig(str(plot_file), bbox_inches='tight')
     plt.show()
 
-    # def func(pct, allvals):
-    #     absolute = float(pct/100.*np.sum(allvals))
-    #     return "{:1.1f}%\n({:1.0f})".format(pct, absolute)
-    # #
-    # fig = plt.figure(figsize=(20,10))
-    # ax2 = fig.add_subplot(111)
-    #
-    # ax2.pie(y, labels =x, explode = ((0.05),)*len(x),autopct = lambda pct: func(pct, y))
-    # # Add a legend
-    # # plt.legend()
-    #
-    # # Show the plot
-    # plt.show()
+
 
 
 def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_childs, corpus):
+    """
+    :param dictOfFiles: a dictionary that files are keys and the headers of the files are values
+    :param x: a list of all files
+    :param y: a list of number of headers of each file (in order of x)
+    :param yy: a list of all headers of each file (in order of x)
+    :param header_cooccurrences: a dictionary that headers are keys and a dictionary of its co-occurance headers and number of occure are values
+    :param dict_of_headers_childs: a dictionary that headers are keys and a list of variants of the headers are values
+    :param corpus: the number of the bunch
+    :return:
+        Save analysis on csv files
+    """
     csv_dir = os.path.join(parentDir, "analysis_headers/CSV/")
     os.makedirs(csv_dir, exist_ok=True)
     csv_files = os.path.join(csv_dir, corpus + "_analysis_files.csv")
@@ -221,68 +206,47 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
     csv_headers_number = os.path.join(csv_dir, corpus + "_analysis_headers-number.csv")
     csv_header_cooccurrences = os.path.join(csv_dir, corpus + "_analysis_header_co-occurrences.csv")
     csv_header_children = os.path.join(csv_dir, corpus + "_analysis_original_headers_in_report.csv")
+    csv_top_10_cooccurances = os.path.join(csv_dir, corpus + "_top_10_header_co-occurances.csv")
 
     d = {"Headers": x, "Filesnumber": y}
     data = pd.DataFrame(d)
     data_sorted = data.sort_values(by=["Filesnumber"], ascending=False)
     data_sorted.to_csv(csv_headers_number, index=False, sep='\t')
 
-    # d = {"Headers": x, "Files": yy}
-    # data = pd.DataFrame(d)
-    # print(data.head())
-    # data.to_csv(csv_headers, index = False, sep='\t' )
+
     with open(csv_headers, mode='w+') as csv_headers_f:
         for key, value in zip(x, yy):
             csv_headers_f.write(key + "\t" + value)
             csv_headers_f.write('\n')
 
     with open(csv_header_cooccurrences, 'w+') as f:
-        # for key, values in sorted(header_cooccurrences.items(), key = lambda kv:(kv[1], kv[0]), reverse=True):
-        #     f.write("%s\t%s\n" % (key, values))
+
         csv_writer = csv.writer(f, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow(["\t"] + x)
-        # for key, values in header_cooccurrences.items():
-        #     output  = []
-        #     output.append(key)
-        #     for keys in x:
-        #         if values.get(keys) !=  None:
-        #             output.append(values.get(keys))
-        #         else:
-        #             output.append(0)
-        #     csv_writer.writerow(output)
-
-        # for r in x:
-        #     if (header_cooccurrences.get(r)!= None):
-        #         values = header_cooccurrences.get(r)
-        #         output  = []
-        #         output.append(r)
-        #         for c in x:
-        #             if values.get(c) !=  None:
-        #                 sum_r_c = values.get(c)
-        #                 if header_cooccurrences.get(c)!= None and c!=r:
-        #                     if header_cooccurrences.get(c).get(r)!= None:
-        #                         sum_r_c += header_cooccurrences.get(c).get(r)
-        #                 output.append(sum_r_c)
-        #             else:
-        #                 sum_r_c = 0
-        #                 if header_cooccurrences.get(c)!= None and c!=r:
-        #                     if header_cooccurrences.get(c).get(r)!= None:
-        #                         sum_r_c += header_cooccurrences.get(c).get(r)
-        #                 output.append(sum_r_c)
-        #         csv_writer.writerow(output)
+        temp = {}
         for r in x:
             values = {}
             if header_cooccurrences.get(r) is not None:
                 values = header_cooccurrences.get(r)
             output = []
             output.append(r)
+
             for c in x:
                 if values.get(c) is not None:
                     sum_r_c = values.get(c)
+
+
+
                     if header_cooccurrences.get(c) is not None and c != r:
                         if header_cooccurrences.get(c).get(r) is not None:
                             sum_r_c += header_cooccurrences.get(c).get(r)
                     output.append(sum_r_c)
+
+                    temp_rc = r.replace("SECCION_", "") + "\t" + c.replace("SECCION_", "")
+                    temp_cr = c.replace("SECCION_", "") + "\t" + r.replace("SECCION_", "")
+
+                    if temp_rc not in temp.keys() and temp_cr not in temp.keys():
+                        temp[temp_rc] = sum_r_c
                 else:
                     sum_r_c = 0
                     if header_cooccurrences.get(c) is not None and c != r:
@@ -291,16 +255,21 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
                     output.append(sum_r_c)
             csv_writer.writerow(output)
 
-    # header_list = os.path.join(parentDir, "data/headers.txt")
-    # header = []
-    # with open(header_list) as f:
-    #     for i in f:
-    #         head = i.strip().split("\t")
-    #         if len(head)>=2:
-    #             h = head[1].strip()
-    #             if (h not in header):
-    #                 header.append(h)
-    #
+    sorted_x = sorted(temp.items(), key=lambda kv: kv[1], reverse=True)
+
+    sorted_dict = collections.OrderedDict(sorted_x)
+    row = 0
+    w = open(csv_top_10_cooccurances,"w")
+    csv_writer = csv.writer(w, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
+    for key, value in sorted_dict.items():
+        if row == 10:
+            break
+        csv_writer.writerow(key.split("\t") + [str(value)])
+        row += 1
+
+    w.close()
+
+
     with open(csv_files, mode='w') as csv_f:
         csv_writer = csv.writer(csv_f, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow(["\t"] + x)
@@ -312,21 +281,18 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
                     output.append(1)
                 else:
                     output.append(0)
-                # if val != "DEFAULT_HEADER":
-                #     output.append(val)
+
             csv_writer.writerow(output)
 
     with open(csv_header_children, mode='w') as csv_f:
-        csv_writer = csv.writer(csv_f, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
-        # csv_writer.writerow(["\t"]+x)
+        csv_writer = csv.writer(csv_f, delimiter=',', quoting=csv.QUOTE_MINIMAL)
         for keys, values in dict_of_headers_childs.items():
             output = []
-            output.append(keys)
+            output.append(keys.replace("SECCION_",""))
+            output.append(len(values))
             for val in values:
                 output.append(val)
             csv_writer.writerow(output)
-            # csv_f.write(keys + "," + ",".join(values) + "\n")
-
 
 def get_importantheaders():
     importnat_list = os.path.join(parentDir, "data/important_headers.txt")
@@ -337,13 +303,17 @@ def get_importantheaders():
 
 
 def analysis(**kwargs):
+    """
+    :param kwargs: the given arguments by user
+    :return:
+        save the analysis data on csv file (see the README) and plot the number of headers
+    """
     filter = kwargs['filter']
     strict = kwargs['strict']
     corpus = kwargs['corpus']
     xml_files = kwargs['xml_files']
     dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(xml_files, filter)
 
-    # dictOfHeaders = filtering(dictOfFiles, combination)
 
     importantHeaders = get_importantheaders()
     x = []
@@ -361,13 +331,11 @@ def analysis(**kwargs):
                 x.append(key)
                 y.append(len(value))
                 yy.append(",".join(value))
-                # print("Header: " + key + "\tFiles: " + "\t".join(value))
         else:
             print("The files do not have any section about: " + key)
 
     print_csv(dictOfFiles, x, y, yy, header_cooccurrences, dictOfHeaders_childs, corpus)
-    # Show Basic Info
-    # print(x,y)
+
     if len(x) > 0:
         showbasicinfo(x, y, corpus)
     else:
@@ -406,8 +374,5 @@ if __name__ == "__main__":
                 list_files.append(os.path.join(dirpath, filename))
                 list_file_names.append(filename)
 
-    # for text_files in os.listdir(main_root):
-    #     if not text_files.startswith(".DS_Store"):
-    #         XML_Directory = os.path.join(main_root,text_files, Set)
 
     analysis(filter=args.filter, strict=args.strict, corpus=args.set, xml_files=list_files)
