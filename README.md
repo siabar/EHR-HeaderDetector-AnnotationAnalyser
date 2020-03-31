@@ -75,11 +75,13 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
   -  [**`PLOT/`**](analysis_headers/PLOT/):
     Showing how many headers have been detected on the given corpus.
   -  [**`CSV/`**](analysis_headers/CSV/):
-    {Corpus-Name}_analysis_files.csv: Showing all detected headers in each text file. 
-    {Corpus-Name}_analysis_headers.csv: Showing all files that contain a specific header. 
-    {Corpus-Name}_analysis_header_co-occurrence.csv: It is a matrix which shows how many times two headers co-occurrence.
-    {Corpus-Name}_top_10_header_co-occurances.csv: Showing top 10 co-occurances headers.
-    {Corpus-Name}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
+      ```
+      {Bunch-Number}_analysis_files.csv: Showing all detected headers in each text file. 
+      {Bunch-Number}_analysis_headers.csv: Showing all files that contain a specific header. 
+      {Bunch-Number}_analysis_header_co-occurrence.csv: It is a matrix which shows how many times two headers co-occurrence.
+      {Bunch-Number}_top_10_header_co-occurances.csv: Showing top 10 co-occurances headers.
+      {Bunch-Number}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
+      ```
 
 
 ## Usage
