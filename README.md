@@ -25,15 +25,15 @@ and finally comparing the manually annotated files with pre-annotated files by [
     output is in [XML_SECTION](documents/XML_SECTION) directory and [ANN_SECTION](documents/ANN_SECTION) Directory.
 
   - [**`analysis_annotatedHeaders.py`**](Scripts/analysis_annotatedHeaders.py): Generate statistical analysis on the annotated files (output of header_detector.py).
-    Input is [XML files](documents/XML_SECTION) and output is CSV and PNG in analysis_headers directory.
-    "parser" script creates analysis_headers folder.
+    Input is [XML files](documents/XML_SECTION) and output is CSV and PLOT in analysis_headers directory.
+    The script creates analysis_headers folder for output files.
     
 - [**`data/`**](data/)
 This folder contains relevant information for annotating and normalizing section headers in EHR:
 
   - **headers.txt**: This file contains a list of allowed headers for your EHRs. 
 	The normalizer tries to match detected header candidates to this list.
-  - **importat_headers.txt**: This file contains a list of needed headers for doing statistical analysis.
+  - **importat_headers.txt**: This file contains a list of necessary headers that EHRs should have them (doing statistical analysis just on these files).
 
 - [**`documents/`**](documents/)
   - [**`txt/`**](documents/txt/): It is text files directory, this folder can have several sub-direcotries for each annotator
@@ -67,18 +67,20 @@ This folder contains relevant information for annotating and normalizing section
     ```
 
   - [**`XML_SECTION/`**](documents/XML_SECTION/): Output of header_detector.py script.
-  - [**`ANN_SECTION/`**](documents/ANN_SECTION/): Output of header_detector.py script and input for concatenate.py script.
+  - [**`ANN_SECTION/`**](documents/ANN_SECTION/): Output of header_detector.py script.
 
 - [**`analysis_headers/`**](analysis_headers/)
-"parser" script creates this folder.
-And it contains the results (Plot and CVS) of a statistical analysis based on the detected headers.
+"analysis_annotatedHeaders" script creates this folder.
+And it contains the results (Plot and CVS) of statistical analysis based on the detected headers.
   -  [**`PLOT/`**](analysis_headers/PLOT/):
     Showing how many headers have been detected on the given corpus.
   -  [**`CSV/`**](analysis_headers/CSV/):
     {Corpus-Name}_analysis_files.csv: Showing all detected headers in each text file. 
     {Corpus-Name}_analysis_headers.csv: Showing all files that contain a specific header. 
     {Corpus-Name}_analysis_header_co-occurrence.csv: It is a matrix which shows how many times two headers co-occurrence.
+    {Corpus-Name}_top_10_header_co-occurances.csv: Showing top 10 co-occurances headers.
     {Corpus-Name}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
+
 
 ## Usage
 
