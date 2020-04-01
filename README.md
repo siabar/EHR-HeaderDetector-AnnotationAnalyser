@@ -14,17 +14,17 @@ The generated annotations can be loaded in the BRAT tool.
 
 ## Directory structure
 
-- [**`Scripts/`**](Scripts/): 
+- [**`scripts/`**](scripts/): 
 This folder contains the scripts needed to detect headers, calculate statistical analysis of headers 
 and comparing different annotations records (different annotators have done that) for the same file
 and finally comparing the manually annotated files with pre-annotated files by [SpaCTeS tool](https://github.com/siabar/SpaCTeS).
 
-  - [**`header_detector.py`**](Scripts/header_detector.py): Annotate and normalize section headers in EHR. 
+  - [**`header_detector.py`**](scripts/header_detector.py): Annotate and normalize section headers in EHR. 
     For detecting the section headers, we need the list of headers that is available of [data](data/) directory. 
     Input is in [TXT](documents/TXT) direcotry and 
     output is in [XML_SECTION](documents/XML_SECTION) directory and [ANN_SECTION](documents/ANN_SECTION) Directory.
 
-  - [**`analysis_annotatedHeaders.py`**](Scripts/analysis_annotatedHeaders.py): Generate statistical analysis on the annotated files (output of header_detector.py).
+  - [**`analysis_annotatedHeaders.py`**](scripts/analysis_annotatedHeaders.py): Generate statistical analysis on the annotated files (output of header_detector.py).
     Input is [XML files](documents/XML_SECTION) and output is CSV and PLOT in analysis_headers directory.
     The script creates analysis_headers folder for output files.
     
@@ -83,28 +83,39 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
       {Bunch-Number}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
       ```
 
+## Requirements
+For header_detector script
+<pre>
+pip3 install unidecode
+</pre>
 
+For analysis_annotatedHeaders script
+<pre>
+pip3 install unidecode
+pip3 install numpy
+pip3 install pandas
+pip3 install matplotlib
+</pre>
 ## Usage
 
 **annotate and normalize section headers in EHR, use following command:**
 
-    python3 header_detector.py [options] 
+    python3 header_detector.py --set NUMBER
 
-Options:
 <pre>
---set       Number of bunch [For example: 01]
+--set       (Mandatory) Number of bunch [For example: 01] 
 </pre>
 
 
-**For Generating statistical analysis on the annotated files, use follwoing command:**
+**For Generating statistical analysis on the annotated files, use following command:**
 
-    python3 analysis_annotatedHeaders.py [options] 
+    python3 analysis_annotatedHeaders.py --set NUMBER [options] 
 
 Options:
 <pre>
 --filter    Select/filter the files that have all needed headers (important_headers.txt in Data directory) [True/False]
 --strict    Analysis just of selected files (--filter) [True/False]
---set       Number of the bunch [For example 01]
+--set       (Mandatory) Number of the bunch [For example 01]
 </pre>
 
 

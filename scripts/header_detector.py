@@ -4,7 +4,6 @@ import string
 from builtins import enumerate
 import argparse
 import difflib
-import textdistance
 import re
 import unidecode
 import xml.etree.ElementTree as ET
@@ -12,7 +11,7 @@ import glob
 import ntpath
 import sys
 
-from Scripts.utility import *
+from utility import *
 
 
 class header_detector():
