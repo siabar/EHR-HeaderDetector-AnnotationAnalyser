@@ -28,7 +28,7 @@ def trim_name(name):
 def get_allinfo(xml_files, filter=False, move=True):
     """
     :param xml_files: input files
-    :param filter: Select/filter the files that have all needed headers (importat_headers.txt in Data directory) [True/False]
+    :param filter: Select/filter the files that have all needed headers (important_headers.txt in Data directory) [True/False]
     :param move: if move is True, copy the selected files based (based on filter option) to a new directory
     :return:
         dictOfFiles: a dictionary that files are keys and the headers of the files are values

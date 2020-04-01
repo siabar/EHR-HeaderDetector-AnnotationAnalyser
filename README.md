@@ -102,7 +102,7 @@ Options:
 
 Options:
 <pre>
---filter    Select/filter the files that have all needed headers (importat_headers.txt in Data directory) [True/False]
+--filter    Select/filter the files that have all needed headers (important_headers.txt in Data directory) [True/False]
 --strict    Analysis just of selected files (--filter) [True/False]
 --set       Number of the bunch [For example 01]
 </pre>
