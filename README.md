@@ -1,15 +1,34 @@
 # EHR-HeaderDetector-AnnotationAnalyser: Electronic Health Record (EHR) Header Detector and Annotation Analyser #
 
-
+## Digital Object Identifier (DOI)
 
 ## Introduction
 
 This project is about (pre-)annotation of section headers in EHR. It includes different scripts to: 
 (i) annotate and normalize section headers in EHR, 
-(ii) generate statistical analysis on the annotated files, 
+(ii) generate statistical analysis on the annotated files. 
 
 These scripts were used to identify and normalise section headers in discharge reports. 
 The generated annotations can be loaded in the BRAT tool.
+
+
+## Prerequisites
+In Linux
+<pre>
+sudo apt-get install python3-dev python3-pip git
+</pre>
+
+For header_detector script
+<pre>
+pip3 install unidecode
+</pre>
+
+For analysis_annotatedHeaders script
+<pre>
+pip3 install numpy
+pip3 install pandas
+pip3 install matplotlib
+</pre>
 
 
 ## Directory structure
@@ -89,27 +108,11 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
       {Bunch-Number}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
       ```
 
-## Requirements
-In Linux
-<pre>
-sudo apt-get install python3-dev python3-pip git
-</pre>
-
-For header_detector script
-<pre>
-pip3 install unidecode
-</pre>
-
-For analysis_annotatedHeaders script
-<pre>
-pip3 install numpy
-pip3 install pandas
-pip3 install matplotlib
-</pre>
 
 
+## Usage
 
-**annotate and normalize section headers in EHR, use following command:**
+**To annotate and normalize section headers in EHR, use following command:**
 
     python3 header_detector.py --set NUMBER
 
@@ -118,7 +121,7 @@ pip3 install matplotlib
 </pre>
 
 
-**For Generating statistical analysis on the annotated files, use following command:**
+**To Generate a statistical analysis on the annotated files, use following command:**
 
     python3 analysis_annotatedHeaders.py --set NUMBER [options] 
 
@@ -129,7 +132,41 @@ Options:
 --set       (Mandatory) Number of the bunch [For example 01]
 </pre>
 
+## Examples
+
+**To annotate and normalize section headers:**
+<pre>
+$ python3 analysis_annotatedHeaders.py --set 01
+</pre>
+
+**To generate a statistical analysis:**
+<pre>
+$ python3 header_detector.py --set 01
+</pre>
 
 ## Contact
 
 Siamak Barzegar (siamak.barzegar@bsc.es)
+
+## License
+MIT License
+
+Copyright (c) 2020 Text Mining Unit at BSC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
