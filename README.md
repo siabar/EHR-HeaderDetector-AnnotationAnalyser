@@ -93,7 +93,7 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
 In Linux
 <pre>
 sudo apt-get install python3-dev python3-pip git
-<pre>
+</pre>
 
 For header_detector script
 <pre>
@@ -111,7 +111,7 @@ pip3 install matplotlib
 
 **annotate and normalize section headers in EHR, use following command:**
 
-    python3 header_detector.py --set NUMyBER
+    python3 header_detector.py --set NUMBER
 
 <pre>
 --set       (Mandatory) Number of bunch [For example: 01] 
