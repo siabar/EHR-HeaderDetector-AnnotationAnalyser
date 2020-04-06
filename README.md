@@ -15,33 +15,19 @@ The generated annotations can be loaded in the BRAT tool.
 ## Prerequisites
 In Linux
 <pre>
-<<<<<<< HEAD
 $ sudo apt-get install python3-dev python3-pip git
-=======
-sudo apt-get install python3-dev python3-pip git
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 </pre>
 
 For header_detector script
 <pre>
-<<<<<<< HEAD
 $  pip3 install unidecode
-=======
-pip3 install unidecode
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 </pre>
 
 For analysis_annotatedHeaders script
 <pre>
-<<<<<<< HEAD
 $ pip3 install numpy
 $ pip3 install pandas
 $ pip3 install matplotlib
-=======
-pip3 install numpy
-pip3 install pandas
-pip3 install matplotlib
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 </pre>
 
 
@@ -124,7 +110,6 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
       {Bunch-Number}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
       ```
 
-<<<<<<< HEAD
 
 
 ## Usage
@@ -157,24 +142,14 @@ Options:
 <pre>
 $ python3 header_detector.py --set 01
 </pre>
-=======
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 
 **To annotate and normalize section headers:**
 <pre>
 $ python3 analysis_annotatedHeaders.py --set 01
 </pre>
 
-<<<<<<< HEAD
 - Analysis headers of all files in bunch 01.
 
-=======
-## Usage
-
-**To annotate and normalize section headers in EHR, use following command:**
-
-    python3 header_detector.py --set NUMBER
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 
 **To annotate and normalize section headers with filter option:**
 <pre>
@@ -185,10 +160,6 @@ $ python3 analysis_annotatedHeaders.py --set 01 --filter
 - Then analysis headers of filtered files.
 
 
-<<<<<<< HEAD
-=======
-**To Generate a statistical analysis on the annotated files, use following command:**
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 
 **To annotate and normalize section headers with filter and strict options:**
 <pre>
@@ -203,21 +174,7 @@ $ python3 analysis_annotatedHeaders.py --set 01 --filer --strict
 $ python3 analysis_annotatedHeaders.py --set 01 --strict
 </pre>
 
-<<<<<<< HEAD
 - Analysis headers in important_headers.txt of all files in bunch 01.
-=======
-## Examples
-
-**To annotate and normalize section headers:**
-<pre>
-$ python3 analysis_annotatedHeaders.py --set 01
-</pre>
-
-**To generate a statistical analysis:**
-<pre>
-$ python3 header_detector.py --set 01
-</pre>
->>>>>>> 16bb8eb80c27d05be7b67d063fa672fdc22c6714
 
 ## Contact
 
