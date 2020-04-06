@@ -121,7 +121,7 @@ def get_allinfo(xml_files, filter=False, move=True):
                             print("This tag in XML file is not exist in HEADER list:  " + val)
                     dictOfFiles[filename] = tags
                     if move:
-                        shutil.copy(file, os.path.join(parentDir, "documents/Fined_XML"))
+                        shutil.copy(file, os.path.join(parentDir, "documents/SELECTED_XML"))
             else:
                 dictOfFiles[filename] = tags
                 for val in tags:
@@ -346,14 +346,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="analysis")
 
     parser.add_argument('-f', '--filter',
-                        help="Filter files based on needed headers",
+                        help="filter files that have all headers at important_headers.txt (in data directory), and move the filterred file into 'SELECTED_XML' directory ",
                         action="store_true")
 
     parser.add_argument('-s', '--strict',
-                        help="Show just analysis of filtered headers",
+                        help="Analysis headers at important_headers.txt ",
                         action="store_true")
-
-    parser.add_argument('-c', help='Type of Corpus [Aquas, SonEspases]')
 
     parser.add_argument('--set', help='Which set is going to compare')
 
