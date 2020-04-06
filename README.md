@@ -33,8 +33,14 @@ This folder contains relevant information for annotating and normalizing section
 
   - **headers.txt**: This file contains a list of allowed headers for your EHRs. 
 	The normalizer tries to match detected header candidates to this list.
+	This file has three columns that have been separated by TAB ("\t"):
+	<pre>
+	"ARQUETYPE"[TAB]"HEADER"[TAB]"HEADER VARIATION" 
+	</pre>
   - **importat_headers.txt**: This file contains a list of necessary headers that EHRs should have them (doing statistical analysis just on these files).
-
+    <pre>
+    Each line one Header
+    </pre>
 - [**`documents/`**](documents/)
   - [**`txt/`**](documents/txt/): It is text files directory, this folder can have several sub-direcotries for each annotator
     and each annotator must have a sub-directory for each bunch.
@@ -84,6 +90,11 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
       ```
 
 ## Requirements
+In Linux
+<pre>
+sudo apt-get install python3-dev python3-pip git
+<pre>
+
 For header_detector script
 <pre>
 pip3 install unidecode
@@ -91,16 +102,16 @@ pip3 install unidecode
 
 For analysis_annotatedHeaders script
 <pre>
-pip3 install unidecode
 pip3 install numpy
 pip3 install pandas
 pip3 install matplotlib
 </pre>
-## Usage
+
+
 
 **annotate and normalize section headers in EHR, use following command:**
 
-    python3 header_detector.py --set NUMBER
+    python3 header_detector.py --set NUMyBER
 
 <pre>
 --set       (Mandatory) Number of bunch [For example: 01] 
