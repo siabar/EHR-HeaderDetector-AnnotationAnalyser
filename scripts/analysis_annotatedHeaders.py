@@ -195,7 +195,7 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
     :param x: a list of all files
     :param y: a list of number of headers of each file (in order of x)
     :param yy: a list of all headers of each file (in order of x)
-    :param header_cooccurrences: a dictionary that headers are keys and a dictionary of its co-occurance headers and number of occure are values
+    :param header_cooccurrences: a dictionary that headers are keys and a dictionary of its co-occurrences headers and number of occure are values
     :param dict_of_headers_childs: a dictionary that headers are keys and a list of variants of the headers are values
     :param corpus: the number of the bunch
     :return:
@@ -208,7 +208,7 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
     csv_headers_number = os.path.join(csv_dir, corpus + "_analysis_headers-number.csv")
     csv_header_cooccurrences = os.path.join(csv_dir, corpus + "_analysis_header_co-occurrences.csv")
     csv_header_children = os.path.join(csv_dir, corpus + "_analysis_original_headers_in_report.csv")
-    csv_top_10_cooccurances = os.path.join(csv_dir, corpus + "_top_10_header_co-occurances.csv")
+    csv_top_10_cooccurrences = os.path.join(csv_dir, corpus + "_top_10_header_co-occurrences.csv")
 
     d = {"Headers": x, "Filesnumber": y}
     data = pd.DataFrame(d)
@@ -261,7 +261,7 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
 
     sorted_dict = collections.OrderedDict(sorted_x)
     row = 0
-    w = open(csv_top_10_cooccurances,"w")
+    w = open(csv_top_10_cooccurrences,"w")
     csv_writer = csv.writer(w, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
     for key, value in sorted_dict.items():
         if row == 10:

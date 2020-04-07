@@ -8,7 +8,7 @@ This project is about (pre-)annotation of section headers in EHR. It includes di
 (i) annotate and normalize section headers in EHR, 
 (ii) generate statistical analysis on the annotated files. 
 
-These scripts were used to identify and normalise section headers in discharge reports. 
+These scripts were used to identify and normalize section headers in discharge reports. 
 The generated annotations can be loaded in the BRAT tool.
 
 
@@ -40,7 +40,7 @@ and finally comparing the manually annotated files with pre-annotated files by [
 
   - [**`header_detector.py`**](scripts/header_detector.py): Annotate and normalize section headers in EHR. 
     For detecting the section headers, we need the list of headers that is available of [data](data/) directory. 
-    Input is in [TXT](documents/TXT) direcotry and 
+    Input is in [TXT](documents/TXT) directory and 
     output is in [XML_SECTION](documents/SELECTED_XML) directory and [ANN_SECTION](documents/ANN_SECTION) Directory.
 
   - [**`analysis_annotatedHeaders.py`**](scripts/analysis_annotatedHeaders.py): Generate statistical analysis on the annotated files (output of header_detector.py).
@@ -61,7 +61,7 @@ This folder contains relevant information for annotating and normalizing section
     Each line one Header
     </pre>
 - [**`documents/`**](documents/)
-  - [**`txt/`**](documents/txt/): It is text files directory, this folder can have several sub-direcotries for each annotator
+  - [**`txt/`**](documents/txt/): It is text files directory, this folder can have several sub-directories for each annotator
     and each annotator must have a sub-directory for each bunch.
 
     Example of format of TXT directory (All other directories in documents also follow this format):
@@ -98,15 +98,15 @@ This folder contains relevant information for annotating and normalizing section
 
 - [**`analysis_headers/`**](analysis_headers/)
 "analysis_annotatedHeaders" script creates this folder.
-And it contains the results (Plot and CVS) of statistical analysis based on the detected headers.
+And it contains the results (Plot and CVS) of statistical analyses based on the detected headers.
   -  [**`PLOT/`**](analysis_headers/PLOT/):
     Showing how many headers have been detected on the given corpus.
   -  [**`CSV/`**](analysis_headers/CSV/):
       ```
       {Bunch-Number}_analysis_files.csv: Showing all detected headers in each text file. 
       {Bunch-Number}_analysis_headers.csv: Showing all files that contain a specific header. 
-      {Bunch-Number}_analysis_header_co-occurrence.csv: It is a matrix which shows how many times two headers co-occurrence.
-      {Bunch-Number}_top_10_header_co-occurances.csv: Showing top 10 co-occurances headers.
+      {Bunch-Number}_analysis_header_co-occurrences.csv: It is a matrix which shows how many times two headers co-occurrence.
+      {Bunch-Number}_top_10_header_co-occurrences.csv: Showing top 10 co-occurrences headers.
       {Bunch-Number}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
       ```
 
@@ -114,7 +114,7 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
 
 ## Usage
 
-**To annotate and normalize section headers in EHR, use following command:**
+**To annotate and normalize section headers in EHR, use the following command:**
 
     $ python3 header_detector.py --set NUMBER
 
@@ -123,13 +123,13 @@ And it contains the results (Plot and CVS) of statistical analysis based on the 
 </pre>
 
 
-**To Generate a statistical analysis on the annotated files, use following command:**
+**To Generate a statistical analysis on the annotated files, use the following command:**
 
     $ python3 analysis_annotatedHeaders.py --set NUMBER [options] 
 
 Options:
 <pre>
---filter, -f    Filter files that have all headers at important_headers.txt (in data directory)
+--filter, -f    Filter files that have all headers at important_headers.txt (in the data directory)
                 and move the filtered files into 'SELECTED_XML' directory 
 --strict, -s    Analysis headers at important_headers.txt 
             
@@ -155,7 +155,7 @@ $ python3 analysis_annotatedHeaders.py --set 01
 <pre>
 $ python3 analysis_annotatedHeaders.py --set 01 --filter
 </pre>
-- First filter the files in bunch 01 that have all headers at important_headers.txt.
+- First, filter the files in bunch 01 that have all headers at important_headers.txt.
 - Move the filtered files into the "SELECTED_XML" directory 
 - Then analysis headers of filtered files.
 
@@ -166,7 +166,7 @@ $ python3 analysis_annotatedHeaders.py --set 01 --filter
 $ python3 analysis_annotatedHeaders.py --set 01 --filter --strict
 </pre>
 
-- First filter the files in bunch 01 that have all headers at important_headers.txt and move the selected files into the "SELECTED_XML" directory 
+- First, filter the files in bunch 01 that have all headers at important_headers.txt and move the selected files into the "SELECTED_XML" directory 
 - Then analysis headers in important_headers.txt of filtered files.
 
 **To annotate and normalize section headers with  strict option:**
