@@ -314,7 +314,11 @@ def analysis(**kwargs):
     xml_files = kwargs['xml_files']
     dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(xml_files, filter)
 
-
+    if len(dictOfHeaders)== 0:
+        if filter:
+            print("No file has the requested headers in important_headers.txt file")
+        else:
+            print("No file has been found")
     importantHeaders = get_importantheaders()
     x = []
     y = []
@@ -326,20 +330,20 @@ def analysis(**kwargs):
                     x.append(key)
                     y.append(len(value))
                     yy.append(",".join(value))
-                    print("Header: " + key + "\tFiles: " + "\t".join(value))
+                    # print("Header: " + key + "\tFiles: " + "\t".join(value))
             else:
                 x.append(key)
                 y.append(len(value))
                 yy.append(",".join(value))
-        else:
-            print("The files do not have any section about: " + key)
+        # else:
+            # print("The files do not have any section about: " + key)
 
     print_csv(dictOfFiles, x, y, yy, header_cooccurrences, dictOfHeaders_childs, corpus)
 
     if len(x) > 0:
         showbasicinfo(x, y, corpus)
-    else:
-        print("No files have been found")
+    # else:
+    #     print("No files have been found")
 
 
 if __name__ == "__main__":

@@ -136,8 +136,9 @@ class header_detector():
         header_file = header_path(sett, self.parentDir)
 
         self.headers_dic(header_file)
+        print("Processing these files:")
         for text_files in os.listdir(txt_directory):
-            print(text_files)
+            print('\t', text_files)
             if text_files.endswith(".txt"):
                 current_section = ""
                 xml_files = text_files[0:-4]
