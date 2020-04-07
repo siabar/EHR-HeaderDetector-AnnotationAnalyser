@@ -25,7 +25,7 @@ def trim_name(name):
                 return name[:-1 * i]
 
 
-def get_allinfo(xml_files, filter=False, move=True):
+def get_allinfo(xml_files, corpus, filter=False, move=True):
     """
     :param xml_files: input files
     :param filter: Select/filter the files that have all needed headers (important_headers.txt in Data directory) [True/False]
@@ -121,7 +121,9 @@ def get_allinfo(xml_files, filter=False, move=True):
                             print("This tag in XML file is not exist in HEADER list:  " + val)
                     dictOfFiles[filename] = tags
                     if move:
-                        shutil.copy(file, os.path.join(parentDir, "documents/SELECTED_XML"))
+                        pathdir = os.path.join(parentDir, "documents/SELECTED_XML/"+ corpus)
+                        os.makedirs(pathdir,exist_ok=True)
+                        shutil.copy(file, pathdir)
             else:
                 dictOfFiles[filename] = tags
                 for val in tags:
@@ -312,7 +314,7 @@ def analysis(**kwargs):
     strict = kwargs['strict']
     corpus = kwargs['corpus']
     xml_files = kwargs['xml_files']
-    dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(xml_files, filter)
+    dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(xml_files, corpus, filter)
 
     if len(dictOfHeaders)== 0:
         if filter:
