@@ -41,10 +41,10 @@ and finally comparing the manually annotated files with pre-annotated files by [
   - [**`header_detector.py`**](scripts/header_detector.py): Annotate and normalize section headers in EHR. 
     For detecting the section headers, we need the list of headers that is available of [data](data/) directory. 
     Input is in [TXT](documents/TXT) direcotry and 
-    output is in [XML_SECTION](documents/XML_SECTION) directory and [ANN_SECTION](documents/ANN_SECTION) Directory.
+    output is in [XML_SECTION](documents/SELECTED_XML) directory and [ANN_SECTION](documents/ANN_SECTION) Directory.
 
   - [**`analysis_annotatedHeaders.py`**](scripts/analysis_annotatedHeaders.py): Generate statistical analysis on the annotated files (output of header_detector.py).
-    Input is [XML files](documents/XML_SECTION) and output is CSV and PLOT in analysis_headers directory.
+    Input is [XML files](documents/SELECTED_XML) and output is CSV and PLOT in analysis_headers directory.
     The script creates analysis_headers folder for output files.
     
 - [**`data/`**](data/)
@@ -91,9 +91,9 @@ This folder contains relevant information for annotating and normalizing section
       - ...
     ```
 
-  - [**`XML_SECTION/`**](documents/XML_SECTION/): Output of header_detector.py script.
+  - [**`XML_SECTION/`**](documents/SELECTED_XML/): Output of header_detector.py script.
   - [**`ANN_SECTION/`**](documents/ANN_SECTION/): Output of header_detector.py script.
-  - [**`SELECTED_XML**](documents/SELECTED_XML/): Output of analysis_annotatedHeaders.py script when --filter option is True.
+  - [**`SELECTED_XML/`**](documents/SELECTED_XML/): Output of analysis_annotatedHeaders.py script when --filter option is applied.
 
 
 - [**`analysis_headers/`**](analysis_headers/)
@@ -163,7 +163,7 @@ $ python3 analysis_annotatedHeaders.py --set 01 --filter
 
 **To annotate and normalize section headers with filter and strict options:**
 <pre>
-$ python3 analysis_annotatedHeaders.py --set 01 --filer --strict
+$ python3 analysis_annotatedHeaders.py --set 01 --filter --strict
 </pre>
 
 - First filter the files in bunch 01 that have all headers at important_headers.txt and move the selected files into the "SELECTED_XML" directory 
