@@ -121,7 +121,7 @@ def get_allinfo(xml_files, corpus, filter=False, move=True):
                             print("This tag in XML file is not exist in HEADER list:  " + val)
                     dictOfFiles[filename] = tags
                     if move:
-                        pathdir = os.path.join(parentDir, "documents/SELECTED_XML/"+ corpus)
+                        pathdir = ntpath.dirname(file).replace("XML_SECTION", "SELECTED_XML")
                         os.makedirs(pathdir,exist_ok=True)
                         shutil.copy(file, pathdir)
             else:
