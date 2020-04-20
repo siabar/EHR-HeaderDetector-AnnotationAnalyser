@@ -291,11 +291,14 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="analysis")
     parser.add_argument('--set', help='Which bunch is going to process')
+    parser.add_argument('--data', help='Input TXT EHR directories.')
     args = parser.parse_args()
     Set = args.set
 
     detect = header_detector()
     main_root = os.path.join(detect.parentDir, "documents", "TXT")
+    if len(args.data) != 0:
+        main_root = args.data
     for text_files in os.listdir(main_root):
         if not text_files.startswith("."):
             TXT_Directory = os.path.join(main_root, text_files, Set)
