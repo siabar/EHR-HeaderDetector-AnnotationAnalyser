@@ -33,7 +33,7 @@ class header_detector():
             header_name_dic : A dictionary that contains categories as keys and their types as values
         """
 
-        with open(header, "r") as h:
+        with open(header, "r", encoding="UTF-8") as h:
             for line in h:
                 row_header = line.strip().split("\t")
                 if row_header[2].endswith('.'):
@@ -144,11 +144,11 @@ class header_detector():
                 xml_files = text_files[0:-4]
                 xml_file = os.path.join(xml_directory, xml_files + ".xml")
 
-                with open(xml_file, "w") as w:
+                with open(xml_file, "w", encoding="UTF-8") as w:
                     w.write("<?xml version='1.0' encoding='UTF-8'?>\n")
                     w.write("<ehr id=\"" + text_files + "\">\n")
                     begin = 0
-                    with open(os.path.join(txt_directory, text_files), "r") as f:
+                    with open(os.path.join(txt_directory, text_files), "r", encoding="UTF-8") as f:
                         for i, line in enumerate(f):
                             line_size = len(line)
                             if line.lower().startswith("diag."):
@@ -263,7 +263,7 @@ class header_detector():
                 name = ""
                 filename_ann = filename.replace("xml", "ann")
                 xx = os.path.join(brat_dir, filename_ann)
-                f = open(xx, "w")
+                f = open(xx, "w", encoding="UTF-8")
                 counter = 1
                 for type_tag in root.findall('Section'):
 
