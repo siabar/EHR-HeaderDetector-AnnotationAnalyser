@@ -121,7 +121,7 @@ class header_detector():
         else:
             return "", False
 
-    def xml(self, txt_directory, xml_directory, sett):
+    def xml(self, txt_directory, xml_directory):
         """
         :param txt_directory: Directory of text files as input
         :param xml_directory: Directory of xml files as output
@@ -133,13 +133,13 @@ class header_detector():
         os.makedirs(xml_directory, exist_ok=True)
 
 
-        header_file = header_path(sett, self.parentDir)
+        header_file = os.path.join(self.parentDir, "data/headers.txt")
 
         self.headers_dic(header_file)
         print("Processing these files:")
         for text_files in os.listdir(txt_directory):
-            print('\t', text_files)
             if text_files.endswith(".txt"):
+                print('\t', text_files)
                 current_section = ""
                 xml_files = text_files[0:-4]
                 xml_file = os.path.join(xml_directory, xml_files + ".xml")
@@ -290,20 +290,17 @@ class header_detector():
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="analysis")
-    parser.add_argument('--set', help='Which bunch is going to process')
     parser.add_argument('--data', help='Input TXT EHR directories.')
     args = parser.parse_args()
-    Set = args.set
 
     detect = header_detector()
     main_root = os.path.join(detect.parentDir, "documents", "TXT")
-    if len(args.data) != 0:
+    if args.data is not None:
         main_root = args.data
-    for text_files in os.listdir(main_root):
-        if not text_files.startswith("."):
-            TXT_Directory = os.path.join(main_root, text_files, Set)
-            XML_Directory = TXT_Directory.replace("TXT", "XML_SECTION")
-            ANN_Directory = XML_Directory.replace("XML_SECTION", "ANN_SECTION")
 
-            detect.xml(TXT_Directory, XML_Directory, Set)
-            detect.ann(XML_Directory, ANN_Directory)
+    TXT_Directory = main_root
+    XML_Directory = TXT_Directory.replace("TXT", "XML_SECTION")
+    ANN_Directory = XML_Directory.replace("XML_SECTION", "ANN_SECTION")
+
+    detect.xml(TXT_Directory, XML_Directory)
+    detect.ann(XML_Directory, ANN_Directory)

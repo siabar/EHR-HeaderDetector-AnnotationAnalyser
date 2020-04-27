@@ -116,16 +116,12 @@ And it contains the results (Plot and CVS) of statistical analyses based on the 
 
 **To annotate and normalize section headers in EHR, use the following command:**
 
-    $ python3 header_detector.py --set NUMBER
-
-<pre>
---set       (Mandatory) Number of bunch [For example: 01] 
-</pre>
+    $ python3 header_detector.py 
 
 
 **To Generate a statistical analysis on the annotated files, use the following command:**
 
-    $ python3 analysis_annotatedHeaders.py --set NUMBER [options] 
+    $ python3 analysis_annotatedHeaders.py [options] 
 
 Options:
 <pre>
@@ -133,29 +129,28 @@ Options:
                 and move the filtered files into 'SELECTED_XML' directory 
 --strict, -s    Analysis headers at important_headers.txt 
             
---set           Number of the bunch [For example 01] (Mandatory)
 </pre>
 
 ## Examples
 
 **To generate a statistical analysis:**
 <pre>
-$ python3 header_detector.py --set 01
+$ python3 header_detector.py 
 </pre>
 
 **To annotate and normalize section headers:**
 <pre>
-$ python3 analysis_annotatedHeaders.py --set 01
+$ python3 analysis_annotatedHeaders.py
 </pre>
 
-- Analysis headers of all files in bunch 01.
+- Analysis headers of all files in input (XML) directory.
 
 
 **To annotate and normalize section headers with filter option:**
 <pre>
-$ python3 analysis_annotatedHeaders.py --set 01 --filter
+$ python3 analysis_annotatedHeaders.py --filter
 </pre>
-- First, filter the files in bunch 01 that have all headers at important_headers.txt.
+- First, filter the files in input (XML)irectory that have all headers at important_headers.txt.
 - Move the filtered files into the "SELECTED_XML" directory 
 - Then analysis headers of filtered files.
 
@@ -163,10 +158,10 @@ $ python3 analysis_annotatedHeaders.py --set 01 --filter
 
 **To annotate and normalize section headers with filter and strict options:**
 <pre>
-$ python3 analysis_annotatedHeaders.py --set 01 --filter --strict
+$ python3 analysis_annotatedHeaders.py --filter --strict
 </pre>
 
-- First, filter the files in bunch 01 that have all headers at important_headers.txt and move the selected files into the "SELECTED_XML" directory 
+- First, filter the files in input directory that have all headers at important_headers.txt and move the selected files into the "SELECTED_XML" directory 
 - Then analysis headers in important_headers.txt of filtered files.
 
 **To annotate and normalize section headers with  strict option:**

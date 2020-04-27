@@ -25,7 +25,7 @@ def trim_name(name):
                 return name[:-1 * i]
 
 
-def get_allinfo(xml_files, corpus, filter=False, move=True):
+def get_allinfo(xml_files, filter=False, move=True):
     """
     :param xml_files: input files
     :param filter: Select/filter the files that have all needed headers (important_headers.txt in Data directory) [True/False]
@@ -140,17 +140,16 @@ def get_allinfo(xml_files, corpus, filter=False, move=True):
     return dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs
 
 
-def showbasicinfo(x, y, corpus):
+def showbasicinfo(x, y):
     """
     :param x: a list of all files
     :param y: a list of number of headers of each file (in order of x)
-    :param corpus: Name of Bunch
     :return:
         PLOT the data
     """
     plt_dir = os.path.join(parentDir, "analysis_headers/PLOT/")
     os.makedirs(plt_dir, exist_ok=True)
-    plot_file = os.path.join(plt_dir, "Fiq_" + corpus + ".png")
+    plot_file = os.path.join(plt_dir, "Fiq" + ".png")
 
     d = {"Headers": x, "Filesnumber": y}
     data = pd.DataFrame(d)
@@ -189,7 +188,7 @@ def showbasicinfo(x, y, corpus):
 
 
 
-def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_childs, corpus):
+def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_childs):
     """
     :param dictOfFiles: a dictionary that files are keys and the headers of the files are values
     :param x: a list of all files
@@ -197,18 +196,17 @@ def print_csv(dict_of_files, x, y, yy, header_cooccurrences, dict_of_headers_chi
     :param yy: a list of all headers of each file (in order of x)
     :param header_cooccurrences: a dictionary that headers are keys and a dictionary of its co-occurrences headers and number of occure are values
     :param dict_of_headers_childs: a dictionary that headers are keys and a list of variants of the headers are values
-    :param corpus: the number of the bunch
     :return:
         Save analysis on csv files
     """
     csv_dir = os.path.join(parentDir, "analysis_headers/CSV/")
     os.makedirs(csv_dir, exist_ok=True)
-    csv_files = os.path.join(csv_dir, corpus + "_analysis_files.csv")
-    csv_headers = os.path.join(csv_dir, corpus + "_analysis_headers.csv")
-    csv_headers_number = os.path.join(csv_dir, corpus + "_analysis_headers-number.csv")
-    csv_header_cooccurrences = os.path.join(csv_dir, corpus + "_analysis_header_co-occurrences.csv")
-    csv_header_children = os.path.join(csv_dir, corpus + "_analysis_original_headers_in_report.csv")
-    csv_top_10_cooccurrences = os.path.join(csv_dir, corpus + "_top_10_header_co-occurrences.csv")
+    csv_files = os.path.join(csv_dir,   "analysis_files.csv")
+    csv_headers = os.path.join(csv_dir, "analysis_headers.csv")
+    csv_headers_number = os.path.join(csv_dir, "analysis_headers-number.csv")
+    csv_header_cooccurrences = os.path.join(csv_dir, "analysis_header_co-occurrences.csv")
+    csv_header_children = os.path.join(csv_dir,  "analysis_original_headers_in_report.csv")
+    csv_top_10_cooccurrences = os.path.join(csv_dir,  "top_10_header_co-occurrences.csv")
 
     d = {"Headers": x, "Filesnumber": y}
     data = pd.DataFrame(d)
@@ -312,9 +310,8 @@ def analysis(**kwargs):
     """
     filter = kwargs['filter']
     strict = kwargs['strict']
-    corpus = kwargs['corpus']
     xml_files = kwargs['xml_files']
-    dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(xml_files, corpus, filter)
+    dictOfFiles, dictOfHeaders, header_cooccurrences, dictOfHeaders_childs = get_allinfo(xml_files, filter)
 
     if len(dictOfHeaders)== 0:
         if filter:
@@ -340,10 +337,10 @@ def analysis(**kwargs):
         # else:
             # print("The files do not have any section about: " + key)
 
-    print_csv(dictOfFiles, x, y, yy, header_cooccurrences, dictOfHeaders_childs, corpus)
+    print_csv(dictOfFiles, x, y, yy, header_cooccurrences, dictOfHeaders_childs)
 
     if len(x) > 0:
-        showbasicinfo(x, y, corpus)
+        showbasicinfo(x, y)
     # else:
     #     print("No files have been found")
 
@@ -359,24 +356,16 @@ if __name__ == "__main__":
                         help="Analysis headers at important_headers.txt ",
                         action="store_true")
 
-    parser.add_argument('--set', help='Which set is going to compare')
-
     args = parser.parse_args()
-    Set = args.set
 
     list_files = []
     list_file_names = []
 
     main_root = os.path.join(parentDir, "documents", "XML_SECTION")
 
-    for dirpath, dirnames, filenames in os.walk(main_root):
-        if Set is not None:
-            if not dirpath.endswith(Set):
-                continue
-        for filename in [f for f in filenames if f.endswith(".xml") and not f.startswith(".DS_Store")]:
-            if filename not in list_file_names:
-                list_files.append(os.path.join(dirpath, filename))
-                list_file_names.append(filename)
+    for xml_files in os.listdir(main_root):
+        if xml_files.endswith(".xml"):
+            list_files.append(os.path.join(main_root, xml_files))
 
 
-    analysis(filter=args.filter, strict=args.strict, corpus=args.set, xml_files=list_files)
+    analysis(filter=args.filter, strict=args.strict, xml_files=list_files)
