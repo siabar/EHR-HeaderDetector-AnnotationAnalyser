@@ -61,34 +61,14 @@ This folder contains relevant information for annotating and normalizing section
     Each line one Header
     </pre>
 - [**`documents/`**](documents/)
-  - [**`txt/`**](documents/txt/): It is text files directory, this folder can have several sub-directories for each annotator
-    and each annotator must have a sub-directory for each bunch.
+  - [**`txt/`**](documents/txt/): It is text files directory.
 
-    Example of format of TXT directory (All other directories in documents also follow this format):
+    Example of format of TXT directory:
     ```
     - TXT/
-      - Annotator1/
-        - 01/
-          - file1.txt
-          - file2.txt
-          - ...
-        - 02/
-          - file4.txt
-          - file5.txt
-          - ...
+        - file1.txt
+        - file2.txt
         - ...
-
-      - Annotator2/
-        - 01/
-          - file3.txt
-          - file2.txt
-          - ...
-        - 02/
-          - file6.txt
-          - file7.txt
-          - ...
-        - ...
-      - ...
     ```
 
   - [**`XML_SECTION/`**](documents/SELECTED_XML/): Output of header_detector.py script.
@@ -100,14 +80,14 @@ This folder contains relevant information for annotating and normalizing section
 "analysis_annotatedHeaders" script creates this folder.
 And it contains the results (Plot and CVS) of statistical analyses based on the detected headers.
   -  [**`PLOT/`**](analysis_headers/PLOT/):
-    Showing how many headers have been detected on the given corpus.
+    Showing how many headers have been detected on the given corpora.
   -  [**`CSV/`**](analysis_headers/CSV/):
       ```
-      {Bunch-Number}_analysis_files.csv: Showing all detected headers in each text file. 
-      {Bunch-Number}_analysis_headers.csv: Showing all files that contain a specific header. 
-      {Bunch-Number}_analysis_header_co-occurrences.csv: It is a matrix which shows how many times two headers co-occurrence.
-      {Bunch-Number}_top_10_header_co-occurrences.csv: Showing top 10 co-occurrences headers.
-      {Bunch-Number}_analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
+      analysis_files.csv: Showing all detected headers in each text file. 
+      analysis_headers.csv: Showing all files that contain a specific header. 
+      analysis_header_co-occurrences.csv: It is a matrix which shows how many times two headers co-occurrence.
+      top_10_header_co-occurrences.csv: Showing top 10 co-occurrences headers.
+      analysis_original_headers_in_report.csv: Showing the original section in the EHR that script detects it as a header (By similarity method).
       ```
 
 
@@ -166,10 +146,10 @@ $ python3 analysis_annotatedHeaders.py --filter --strict
 
 **To annotate and normalize section headers with  strict option:**
 <pre>
-$ python3 analysis_annotatedHeaders.py --set 01 --strict
+$ python3 analysis_annotatedHeaders.py --strict
 </pre>
 
-- Analysis headers in important_headers.txt of all files in bunch 01.
+- Analysis headers in important_headers.txt of all files in input (XML) directory.
 
 ## Contact
 
