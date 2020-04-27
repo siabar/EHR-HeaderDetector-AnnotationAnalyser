@@ -11,7 +11,6 @@ This project is about (pre-)annotation of section headers in EHR. It includes di
 These scripts were used to identify and normalize section headers in discharge reports. 
 The generated annotations can be loaded in the BRAT tool.
 
-
 ## Prerequisites
 In Linux
 <pre>
