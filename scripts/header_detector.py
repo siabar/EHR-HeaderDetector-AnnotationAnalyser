@@ -273,14 +273,8 @@ class header_detector():
                     x = str(type_tag.get('id')).strip()
                     span_begin = str(type_tag.get('span_begin')).strip()
                     span_end = str(type_tag.get('span_end')).strip()
-                    pure_name_eq = name.split("=", 2)
-                    pure_name = pure_name_eq[0].split("-!-", 2)
-
-
-                    name = pure_name[0]
-                    if (x != "DEFAULT_HEADER"):
-                        f.write("T" + str(counter) + "\t" + x + " " + span_begin + " " + span_end + "\t" + pure_name[
-                            0].rstrip() + "\n")
+                    if x != "DEFAULT_HEADER":
+                        f.write("T" + str(counter) + "\t" + x + " " + span_begin + " " + span_end + "\t" + name.strip() + "\n")
                         counter += 1
                 f.close()
             except:
@@ -290,17 +284,23 @@ class header_detector():
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="analysis")
-    parser.add_argument('--data', help='Input TXT EHR directories.')
+    parser.add_argument('--input', help='Input TXT EHR directories.')
+    parser.add_argument('--output', help='Output ANN EHR directories.')
+
     args = parser.parse_args()
 
     detect = header_detector()
-    main_root = os.path.join(detect.parentDir, "documents", "TXT")
-    if args.data is not None:
-        main_root = args.data
 
-    TXT_Directory = main_root
-    XML_Directory = TXT_Directory.replace("TXT", "XML_SECTION")
-    ANN_Directory = XML_Directory.replace("XML_SECTION", "ANN_SECTION")
+    TXT_Directory = os.path.join(detect.parentDir, "documents", "TXT")
+    if args.input is not None:
+        TXT_Directory = args.input
+
+    ANN_Directory = TXT_Directory.replace("TXT", "ANN_SECTION")
+    XML_Directory = ANN_Directory.replace("ANN_SECTION", "XML_SECTION")
+
+    if args.output is not None:
+        ANN_Directory = args.output
+        XML_Directory = ANN_Directory.replace("ANN_SECTION", "XML_SECTION")
 
     detect.xml(TXT_Directory, XML_Directory)
     detect.ann(XML_Directory, ANN_Directory)
